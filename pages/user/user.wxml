@@ -1,0 +1,84 @@
+<view class="page-user">
+  <!-- 未登录 -->
+  <view class="login-banner" wx:if="{{!isLogin}}" bindtap="onLogin">
+    <view class="lb-avatar">🐾</view>
+    <view class="lb-text">
+      <text class="lb-title">点击登录</text>
+      <text class="lb-sub">注册即送500金币 | 解锁全部功能</text>
+    </view>
+    <text class="lb-arrow">></text>
+  </view>
+
+  <!-- 会员卡 -->
+  <view class="member-card" wx:if="{{isLogin}}">
+    <view class="mc-top">
+      <view class="mc-avatar">{{userInfo.avatar}}</view>
+      <view>
+        <text class="mc-name">{{userInfo.nickname}}</text>
+        <text class="mc-tier">{{userInfo.tierName}}</text>
+      </view>
+      <text class="mc-edit" bindtap="onLogin">编辑</text>
+    </view>
+    <view class="mc-stats">
+      <view class="mc-stat">
+        <text class="mc-val">{{userInfo.coins}}</text>
+        <text class="mc-label">金币余额</text>
+      </view>
+      <view class="mc-stat">
+        <text class="mc-val">{{userInfo.commission}}</text>
+        <text class="mc-label">佣金(元)</text>
+      </view>
+      <view class="mc-stat">
+        <text class="mc-val">{{userInfo.inviteCount}}人</text>
+        <text class="mc-label">已邀请</text>
+      </view>
+    </view>
+    <view class="coin-hint">💡 100金币=1元购物 | 300金币=1元现金 | 1元佣金=500金币</view>
+  </view>
+
+  <!-- 宠物档案 -->
+  <view class="pet-card" bindtap="onPet">
+    <text class="pet-emoji">🐶</text>
+    <view class="pet-info">
+      <text class="pet-name">{{petInfo.name}}</text>
+      <text class="pet-detail">{{petInfo.breed ? petInfo.breed + ' | ' + petInfo.age : '点击完善宠物档案'}}</text>
+    </view>
+    <text class="pet-arrow">></text>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-group">
+    <view class="menu-title">我的服务</view>
+    <view class="menu-item" bindtap="onOrders">
+      <text class="mi">📋</text><text class="mt">我的订单</text><text class="ma">></text>
+    </view>
+    <view class="menu-item" bindtap="onAddress">
+      <text class="mi">📍</text><text class="mt">收货地址</text><text class="ma">></text>
+    </view>
+    <view class="menu-item" bindtap="onCommunity">
+      <text class="mi">💰</text><text class="mt">会员中心·赚金币</text><text class="ma">></text>
+    </view>
+    <view class="menu-item" bindtap="onEvent">
+      <text class="mi">🏆</text><text class="mt">赛事报名</text><text class="ma">></text>
+    </view>
+    <view class="menu-item" bindtap="onPartner">
+      <text class="mi">🤝</text><text class="mt">城市合伙人</text><text class="ma">></text>
+    </view>
+  </view>
+
+  <view class="menu-group">
+    <view class="menu-title">其他</view>
+    <view class="menu-item" bindtap="onService">
+      <text class="mi">💬</text><text class="mt">联系客服</text><text class="ma">></text>
+    </view>
+    <view class="menu-item" bindtap="onAbout">
+      <text class="mi">ℹ️</text><text class="mt">关于草原爱宠营</text><text class="ma">></text>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view class="user-footer">
+    <text>草原爱宠营 · 锡林郭勒自有工厂</text>
+    <text>客服微信: 草原爱宠营宠物零食 | 13145294218</text>
+  </view>
+</view>

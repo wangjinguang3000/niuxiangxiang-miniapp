@@ -1,0 +1,64 @@
+<view class="page">
+  <!-- 赛事提示 -->
+  <view class="contest-hint" wx:if="{{contestId}}">
+    <text>📤 正在投稿到预选赛，发布后自动参赛</text>
+  </view>
+
+  <!-- 视频选择区 -->
+  <view class="video-area" bindtap="onChooseVideo">
+    <video wx:if="{{videoPath}}" class="preview-video" src="{{videoPath}}" autoplay loop muted object-fit="contain"></video>
+    <view wx:else class="video-placeholder">
+      <text class="vp-emoji">📹</text>
+      <text class="vp-text">点击选择视频</text>
+      <text class="vp-hint">15~60秒 | 含人宠互动 | MP4格式</text>
+    </view>
+  </view>
+
+  <!-- 标题输入 -->
+  <view class="form-group">
+    <text class="form-label">视频标题 <text class="required">*</text></text>
+    <input class="form-input" placeholder="写下你与毛孩子的精彩瞬间..." value="{{title}}" bindinput="onTitleInput" maxlength="50"/>
+    <text class="form-count">{{title.length}}/50</text>
+  </view>
+
+  <!-- 标签输入 -->
+  <view class="form-group">
+    <text class="form-label">话题标签</text>
+    <view class="tag-input-row">
+      <input class="form-input tag-input" placeholder="输入标签，回车添加" value="{{tagInput}}" bindinput="onTagInput" bindconfirm="onAddTag" maxlength="10"/>
+      <view class="tag-add-btn" bindtap="onAddTag">添加</view>
+    </view>
+    <view class="tag-list" wx:if="{{tags.length>0}}">
+      <view class="tag-item" wx:for="{{tags}}" wx:key="*this">
+        <text>#{{item}}</text>
+        <text class="tag-remove" bindtap="onRemoveTag" data-index="{{index}}">✕</text>
+      </view>
+    </view>
+    <view class="tag-suggestions">
+      <text class="suggest-label">推荐标签：</text>
+      <text class="suggest-tag" wx:for="{{tagSuggestions}}" wx:key="*this" bindtap="onSuggestTag" data-tag="{{item}}">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 视频信息 -->
+  <view class="form-group" wx:if="{{videoPath}}">
+    <text class="form-label">视频信息</text>
+    <view class="video-info-row">
+      <text>时长：{{videoDuration}}秒</text>
+      <text wx:if="{{tags.length>0}}">标签：{{tags.length}}个</text>
+    </view>
+  </view>
+
+  <!-- 奖励提示 -->
+  <view class="reward-hint">
+    <text>🎁 发布成功即得 <text class="gold">+20金币</text> | 每日最多发布3条</text>
+  </view>
+
+  <!-- 按钮 -->
+  <view class="btn-row">
+    <view class="btn btn-cancel" bindtap="onCancel">取消</view>
+    <view class="btn btn-submit {{uploading?'disabled':''}}" bindtap="onSubmit">
+      {{uploading ? '上传中 ' + uploadProgress + '%' : '发布视频'}}
+    </view>
+  </view>
+</view>

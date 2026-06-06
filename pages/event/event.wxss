@@ -1,0 +1,3 @@
+.page { padding-bottom: 40rpx; }
+.section { padding: 30rpx; }
+.section-title { font-size: 34rpx; font-weight: 700; margin-bottom: 20rpx; display: block; }

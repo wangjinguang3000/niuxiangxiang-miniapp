@@ -1,0 +1,66 @@
+.feed-page { width:100vw; height:100vh; background:#000; position:relative; overflow:hidden; }
+
+/* 顶部Tab */
+.feed-tabs { position:absolute; top:0; left:0; right:0; z-index:10; display:flex; justify-content:center; padding:20rpx 0; background:linear-gradient(to bottom,rgba(0,0,0,.6),transparent); }
+.tab-item { color:rgba(255,255,255,.5); font-size:28rpx; padding:8rpx 36rpx; margin:0 8rpx; border-radius:30rpx; transition:.2s; }
+.tab-item.active { color:#fff; font-weight:700; background:rgba(255,255,255,.2); }
+
+/* 视频滑动 */
+.video-swiper { width:100%; height:100%; }
+.video-container { width:100%; height:100%; position:relative; }
+.video-player { width:100%; height:100%; }
+.video-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+.placeholder-content { text-align:center; }
+.placeholder-emoji { font-size:120rpx; display:block; }
+.placeholder-title { color:#fff; font-size:30rpx; display:block; margin-top:20rpx; }
+.placeholder-author { color:rgba(255,255,255,.5); font-size:24rpx; display:block; margin-top:8rpx; }
+
+/* 右侧互动栏 */
+.side-actions { position:absolute; right:20rpx; bottom:280rpx; display:flex; flex-direction:column; align-items:center; gap:36rpx; z-index:5; }
+.side-item { display:flex; flex-direction:column; align-items:center; }
+.side-icon-wrap { width:80rpx; height:80rpx; border-radius:50%; background:rgba(0,0,0,.4); display:flex; align-items:center; justify-content:center; }
+.side-icon-wrap.liked { background:rgba(255,50,100,.4); }
+.side-icon { font-size:40rpx; }
+.side-count { color:#fff; font-size:22rpx; margin-top:4rpx; }
+.side-coin { color:#FFD700; font-size:18rpx; margin-top:2rpx; }
+.side-share-btn { padding:0; margin:0; background:none; border:none; line-height:1; }
+.side-share-btn::after { border:none; }
+
+/* 底部视频信息 */
+.video-info { position:absolute; left:20rpx; right:100rpx; bottom:60rpx; z-index:5; }
+.author-row { display:flex; align-items:center; margin-bottom:12rpx; }
+.author-avatar { width:60rpx; height:60rpx; border-radius:50%; background:#C8963E; color:#fff; font-size:28rpx; display:flex; align-items:center; justify-content:center; margin-right:12rpx; }
+.author-name { color:#fff; font-size:26rpx; font-weight:600; }
+.video-title { color:#fff; font-size:28rpx; line-height:1.5; display:block; }
+.video-tags { margin-top:10rpx; }
+.video-tags .tag { color:#FFD700; font-size:22rpx; margin-right:12rpx; }
+.video-meta { margin-top:8rpx; }
+.video-meta text { color:rgba(255,255,255,.5); font-size:20rpx; }
+
+/* 每日统计 */
+.daily-bar { position:absolute; top:90rpx; left:20rpx; right:20rpx; z-index:10; background:rgba(0,0,0,.5); border-radius:20rpx; padding:8rpx 20rpx; }
+.daily-bar text { color:#FFD700; font-size:20rpx; }
+
+/* 发布按钮 */
+.upload-fab { position:absolute; bottom:200rpx; left:50%; transform:translateX(-50%); width:88rpx; height:88rpx; border-radius:50%; background:linear-gradient(135deg,#FF6B35,#F7931E); display:flex; align-items:center; justify-content:center; z-index:10; box-shadow:0 4rpx 16rpx rgba(255,107,53,.6); }
+.fab-icon { color:#fff; font-size:48rpx; line-height:1; }
+
+/* 评论弹窗 */
+.comment-modal { position:fixed; top:0; left:0; right:0; bottom:0; z-index:100; visibility:hidden; }
+.comment-modal.show { visibility:visible; }
+.comment-overlay { position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.5); }
+.comment-panel { position:absolute; bottom:0; left:0; right:0; background:#1a1a2e; border-radius:24rpx 24rpx 0 0; height:60vh; display:flex; flex-direction:column; }
+.comment-header { display:flex; justify-content:space-between; align-items:center; padding:24rpx 30rpx; border-bottom:1rpx solid rgba(255,255,255,.1); }
+.comment-title { color:#fff; font-size:30rpx; font-weight:700; }
+.comment-close { color:rgba(255,255,255,.5); font-size:36rpx; padding:10rpx; }
+.comment-list { flex:1; padding:20rpx; }
+.comment-item { display:flex; margin-bottom:24rpx; }
+.comment-avatar { width:60rpx; height:60rpx; border-radius:50%; background:#C8963E; color:#fff; font-size:24rpx; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-right:16rpx; }
+.comment-body { flex:1; }
+.comment-name { color:#FFD700; font-size:24rpx; font-weight:600; display:block; }
+.comment-text { color:#fff; font-size:26rpx; display:block; margin-top:4rpx; }
+.comment-time { color:rgba(255,255,255,.3); font-size:20rpx; display:block; margin-top:4rpx; }
+.comment-empty { color:rgba(255,255,255,.3); text-align:center; padding:40rpx 0; font-size:26rpx; }
+.comment-input-row { display:flex; align-items:center; padding:16rpx 20rpx; border-top:1rpx solid rgba(255,255,255,.1); background:#1a1a2e; }
+.comment-input { flex:1; background:rgba(255,255,255,.1); border-radius:30rpx; padding:14rpx 24rpx; color:#fff; font-size:26rpx; }
+.comment-send { color:#FFD700; font-size:28rpx; font-weight:700; padding:0 20rpx; }

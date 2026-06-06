@@ -1,0 +1,38 @@
+.page-user{background:#F5F0E8;padding-bottom:20px}
+
+.login-banner{background:linear-gradient(135deg,#8B5E3C,#5C3A1E);color:#fff;padding:20px 16px;display:flex;align-items:center;margin:10px 12px;border-radius:12px}
+.lb-avatar{font-size:32px;margin-right:12px}
+.lb-text{flex:1}
+.lb-title{font-size:16px;font-weight:700;display:block}
+.lb-sub{font-size:11px;opacity:.8;display:block}
+.lb-arrow{font-size:20px;opacity:.6}
+
+.member-card{background:linear-gradient(135deg,#5C3A1E,#8B5E3C);color:#fff;margin:10px 12px;border-radius:12px;padding:16px;position:relative;overflow:hidden}
+.mc-top{display:flex;align-items:center;margin-bottom:14px}
+.mc-avatar{width:48px;height:48px;background:rgba(255,255,255,.2);border-radius:50%;text-align:center;line-height:48px;font-size:22px;margin-right:10px}
+.mc-name{font-size:16px;font-weight:700;display:block}
+.mc-tier{font-size:11px;opacity:.8;display:block}
+.mc-edit{position:absolute;right:16px;top:16px;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:10px;font-size:11px}
+.mc-stats{display:flex;justify-content:space-around;padding-bottom:10px}
+.mc-stat{text-align:center}
+.mc-val{font-size:18px;font-weight:800;display:block}
+.mc-label{font-size:10px;opacity:.7;display:block}
+.coin-hint{background:rgba(255,255,255,.1);text-align:center;padding:6px;border-radius:8px;font-size:10px;opacity:.85}
+
+.pet-card{background:#fff;margin:10px 12px;border-radius:12px;padding:14px;display:flex;align-items:center}
+.pet-emoji{font-size:28px;margin-right:12px}
+.pet-info{flex:1}
+.pet-name{font-weight:600;font-size:14px;display:block}
+.pet-detail{font-size:11px;color:#999;display:block}
+.pet-arrow{font-size:16px;color:#ccc}
+
+.menu-group{background:#fff;margin:10px 12px;border-radius:12px;overflow:hidden}
+.menu-title{font-size:12px;color:#999;padding:10px 14px 4px}
+.menu-item{display:flex;align-items:center;padding:12px 14px;border-bottom:1px solid #f5f0e8}
+.menu-item:last-child{border-bottom:none}
+.mi{font-size:18px;margin-right:10px}
+.mt{flex:1;font-size:13px}
+.ma{font-size:14px;color:#ccc}
+
+.user-footer{text-align:center;padding:20px;font-size:10px;color:#999;line-height:1.8}
+.user-footer text{display:block}

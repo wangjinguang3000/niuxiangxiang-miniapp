@@ -1,0 +1,32 @@
+/* Global styles for 草原爱宠营 */
+page{background:#F5F0E8;color:#3D3226;font-size:14px;font-family:PingFang SC,Microsoft YaHei,sans-serif}
+
+/* Gradient background */
+.bg-gradient{background:linear-gradient(135deg,#8B5E3C,#5C3A1E)}
+
+/* Buttons */
+.btn{display:inline-block;border:none;border-radius:20px;font-weight:600}
+.btn-gold{background:linear-gradient(135deg,#C8963E,#A67B2E);color:#fff}
+.btn-lg{padding:12px 32px;font-size:16px}
+.btn-sm{padding:8px 18px;font-size:12px}
+.btn-outline{border:1px solid #fff;color:#fff;padding:6px 14px;border-radius:16px;font-size:12px}
+
+/* Text */
+.text-sm{font-size:12px}
+.text-xl{font-size:20px}
+.font-bold{font-weight:700}
+.c-gray{color:#999}
+
+/* Card */
+.card{background:#fff;padding:14px;margin:10px 12px;border-radius:10px;line-height:1.6;font-size:13px}
+
+/* Price */
+.price{color:#C8963E;font-weight:800}
+.price-original{color:#999;text-decoration:line-through;font-size:11px;margin-left:4px}
+
+/* Flex */
+.flex-between{display:flex;justify-content:space-between;align-items:center}
+
+/* Section */
+.section{padding:10px 12px}
+.section-title{font-size:15px;font-weight:700;padding:14px 16px 8px}

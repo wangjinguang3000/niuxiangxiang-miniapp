@@ -1,0 +1,27 @@
+<view class="page">
+  <view class="hero bg-gradient" style="padding:40rpx 30rpx;color:#fff;text-align:center;">
+    <text class="text-xl font-bold">报名参赛</text>
+    <text style="display:block;margin-top:8rpx;font-size:26rpx;opacity:.85;">早鸟¥1,780 · 仅限前20组</text>
+  </view>
+  <view class="section">
+    <view class="card">
+      <view class="form-group"><text class="form-label">套餐选择 *</text>
+        <picker bindchange="onPackage" value="{{pkgIdx}}" range="{{pkgNames}}"><view class="form-picker">{{pkgNames[pkgIdx]}}</view></picker>
+      </view>
+      <view class="form-group"><text class="form-label">姓名 *</text><input class="form-input" placeholder="您的姓名" bindinput="onName" /></view>
+      <view class="form-group"><text class="form-label">手机/微信号 *</text><input class="form-input" placeholder="方便我们联系确认" bindinput="onPhone" /></view>
+      <view class="form-group"><text class="form-label">所在城市</text><input class="form-input" placeholder="如：北京" bindinput="onCity" /></view>
+      <view style="display:flex;gap:20rpx;">
+        <view class="form-group" style="flex:1;"><text class="form-label">狗狗名字</text><input class="form-input" placeholder="你家毛孩子" bindinput="onDogName" /></view>
+        <view class="form-group" style="flex:1;"><text class="form-label">狗狗品种</text><input class="form-input" placeholder="如：柯基" bindinput="onDogBreed" /></view>
+      </view>
+      <view class="form-group"><text class="form-label">特殊需求/备注</text><textarea class="form-textarea" placeholder="如：第二只狗加¥300、过敏信息等" bindinput="onNote"></textarea></view>
+      <view style="text-align:right;margin:20rpx 0;"><text class="price" style="font-size:44rpx;">¥{{totalPrice}}</text></view>
+      <button class="btn btn-gold btn-block btn-lg" bindtap="onSubmit">提交报名</button>
+      <view class="card" style="background:#FFF9E6;text-align:center;margin-top:16rpx;">
+        <text style="font-size:24rpx;color:#8B6914;">提交后通过微信联系确认并支付
+一个人搞的，没接支付系统，见谅!</text>
+      </view>
+    </view>
+  </view>
+</view>

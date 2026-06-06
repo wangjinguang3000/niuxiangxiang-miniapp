@@ -1,0 +1,83 @@
+<view class="page-partner">
+  <view class="partner-hero">
+    <text class="ph-title">城市合伙人招募</text>
+    <text class="ph-sub">0库存 · 0风险 · 一件代发 · 佣金高达15%</text>
+    <text class="ph-desc">锡林郭勒自有工厂直供 | 草原赛事IP赋能</text>
+  </view>
+
+  <!-- 三级合伙人 -->
+  <view class="card">
+    <view class="card-title">🏆 合伙人等级</view>
+    <view class="tier-scroll">
+      <block wx:for="{{tiers}}" wx:key="index">
+        <view class="tier-card {{item.recommended ? 'recommended' : ''}}" style="border-color:{{item.color}}">
+          <text wx:if="{{item.recommended}}" class="tier-badge">🔥推荐</text>
+          <text class="tier-icon">{{item.icon}}</text>
+          <text class="tier-name">{{item.name}}</text>
+          <text class="tier-target">{{item.target}}</text>
+          <text class="tier-comm" style="color:{{item.color}}">佣金 {{item.commission}}</text>
+          <view class="tier-benefits">
+            <text wx:for="{{item.benefits}}" wx:key="index" wx:for-item="b" class="tb-item">✓ {{b}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 优势 -->
+  <view class="card">
+    <view class="card-title">✨ 为什么选择我们</view>
+    <view class="adv-grid">
+      <view class="adv-item">
+        <text class="adv-emoji">🏭</text>
+        <text class="adv-title">自有工厂</text>
+        <text class="adv-desc">锡林郭勒盟多伦县，人食标准</text>
+      </view>
+      <view class="adv-item">
+        <text class="adv-emoji">📦</text>
+        <text class="adv-title">一件代发</text>
+        <text class="adv-desc">0库存压力，工厂直发包邮</text>
+      </view>
+      <view class="adv-item">
+        <text class="adv-emoji">🏆</text>
+        <text class="adv-title">赛事IP</text>
+        <text class="adv-desc">草原人宠互动季持续引流</text>
+      </view>
+      <view class="adv-item">
+        <text class="adv-emoji">💰</text>
+        <text class="adv-title">高佣金</text>
+        <text class="adv-desc">最高15%+金币双轨奖励</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- FAQ -->
+  <view class="card">
+    <view class="card-title">❓ 常见问题</view>
+    <block wx:for="{{faq}}" wx:key="index">
+      <view class="faq-item">
+        <text class="faq-q">{{item.q}}</text>
+        <text class="faq-a">{{item.a}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- CTA -->
+  <view class="partner-cta" bindtap="onApply">
+    <text class="cta-btn">🚀 立即申请成为合伙人</text>
+  </view>
+
+  <!-- 申请表单弹窗 -->
+  <view class="form-overlay" wx:if="{{showForm}}" bindtap="onCloseForm">
+    <view class="form-modal" catchtap="">
+      <text class="form-title">申请城市合伙人</text>
+      <input class="form-input" placeholder="您的姓名" value="{{formData.name}}" data-field="name" bindinput="onInput" />
+      <input class="form-input" placeholder="手机号码" type="number" value="{{formData.phone}}" data-field="phone" bindinput="onInput" />
+      <input class="form-input" placeholder="推广渠道（微信/抖音/线下门店等）" value="{{formData.channel}}" data-field="channel" bindinput="onInput" />
+      <view class="form-btns">
+        <button class="form-cancel" bindtap="onCloseForm">取消</button>
+        <button class="form-submit" bindtap="onSubmit">提交申请</button>
+      </view>
+    </view>
+  </view>
+</view>

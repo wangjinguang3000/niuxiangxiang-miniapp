@@ -1,0 +1,96 @@
+<view class="page">
+  <!-- 顶部标题区 -->
+  <view class="header">
+    <view class="header-bg"></view>
+    <text class="header-title">🏆 人宠互动预选赛</text>
+    <text class="header-sub">月度主题赛 · 秀出你和毛孩子的默契</text>
+  </view>
+
+  <!-- 当前赛事卡片 -->
+  <view class="contest-card" wx:if="{{currentContest}}">
+    <view class="contest-status">
+      <text class="phase-badge">{{phaseIcon}} {{contestPhase}}</text>
+      <text class="countdown" wx:if="{{countdown}}">⏰ 剩余 {{countdown}}</text>
+    </view>
+    <text class="contest-name">🎯 {{currentContest.title}}</text>
+    <text class="contest-theme">主题：{{currentContest.theme || '人宠互动趣味视频'}}</text>
+    <view class="contest-stats">
+      <text>👥 {{currentContest.participantCount || 0}}人参赛</text>
+      <text>🗳️ {{currentContest.totalVotes || 0}}总票数</text>
+    </view>
+    <view class="contest-vote-info">
+      <text>🎫 你是{{userTier}}，每日{{maxDailyVotes}}次免费投票（超出{{voteCost}}金币/票）</text>
+    </view>
+    <view class="contest-actions">
+      <view class="btn btn-primary" bindtap="onViewEntries">📋 浏览作品 & 投票</view>
+      <view class="btn btn-gold" bindtap="onEnterContest">📤 我要投稿</view>
+    </view>
+  </view>
+
+  <!-- 往期赛事列表 -->
+  <view class="section-title">📅 所有赛事</view>
+  <view class="contest-list">
+    <view class="contest-list-item" wx:for="{{contests}}" wx:key="_id" bindtap="onContestTap" data-index="{{index}}">
+      <view class="cli-left">
+        <text class="cli-phase">{{item.phase === 'submit' ? '📤' : item.phase === 'vote' ? '🗳️' : '🏆'}} {{item.phase === 'submit' ? '投稿中' : item.phase === 'vote' ? '投票中' : '已结束'}}</text>
+        <text class="cli-title">{{item.title}}</text>
+        <text class="cli-theme">{{item.theme}}</text>
+      </view>
+      <text class="cli-arrow">→</text>
+    </view>
+  </view>
+
+  <!-- 奖励说明 -->
+  <view class="section-title">🎁 奖励说明</view>
+  <view class="prize-grid">
+    <view class="prize-item gold">
+      <text class="prize-emoji">🥇</text>
+      <text class="prize-name">冠军</text>
+      <text class="prize-desc">5000金币</text>
+      <text class="prize-desc">牛肝干480g礼盒×2</text>
+    </view>
+    <view class="prize-item silver">
+      <text class="prize-emoji">🥈</text>
+      <text class="prize-name">亚军</text>
+      <text class="prize-desc">3000金币</text>
+      <text class="prize-desc">牛肝干240g×2</text>
+    </view>
+    <view class="prize-item bronze">
+      <text class="prize-emoji">🥉</text>
+      <text class="prize-name">季军</text>
+      <text class="prize-desc">1500金币</text>
+      <text class="prize-desc">牛肝干80g×3</text>
+    </view>
+  </view>
+
+  <!-- 排行榜弹窗 -->
+  <view class="detail-modal {{showDetail?'show':''}}">
+    <view class="detail-overlay" bindtap="onCloseDetail"></view>
+    <view class="detail-panel">
+      <view class="detail-header">
+        <text class="detail-title">📊 {{currentContest.title}} · 排行榜</text>
+        <text class="detail-close" bindtap="onCloseDetail">✕</text>
+      </view>
+      <view class="detail-vote-hint" wx:if="{{contestPhase==='投票期'}}">
+        <text>今日已投 {{todayVotes}}/{{maxDailyVotes}} 票</text>
+      </view>
+      <scroll-view class="detail-list" scroll-y>
+        <view class="rank-item" wx:for="{{entries}}" wx:key="_id">
+          <view class="rank-num {{index<3?'top3':''}}">{{item.rankEmoji}}</view>
+          <view class="rank-avatar">{{item.author.nickname.charAt(0)}}</view>
+          <view class="rank-info">
+            <text class="rank-name">{{item.author.nickname}}</text>
+            <text class="rank-title">{{item.title}}</text>
+          </view>
+          <view class="rank-votes">
+            <text class="rank-count">🗳️ {{item.displayLikes}}</text>
+            <view class="btn-vote {{myVotedIds.indexOf(item._id)>-1?'voted':''}}" bindtap="onVote" data-video-id="{{item._id}}">
+              {{myVotedIds.indexOf(item._id)>-1?'已投':'投票'}}
+            </view>
+          </view>
+        </view>
+        <view class="entry-empty" wx:if="{{entries.length===0}}">暂无参赛作品</view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

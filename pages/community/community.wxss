@@ -1,0 +1,79 @@
+.page-community{background:#F5F0E8;padding-bottom:30px}
+
+/* Hero */
+.com-hero{background:linear-gradient(135deg,#5C3A1E,#8B5E3C);color:#fff;padding:24px 16px;text-align:center}
+.com-coin-badge{display:inline-block;background:rgba(255,255,255,.15);padding:12px 24px;border-radius:16px;margin-bottom:14px}
+.com-coin-num{font-size:36px;font-weight:800;display:block}
+.com-coin-label{font-size:11px;opacity:.8}
+.com-stats{display:flex;justify-content:space-around}
+.com-stat{text-align:center}
+.com-stat-val{font-size:16px;font-weight:700;display:block}
+.com-stat-label{font-size:10px;opacity:.7;display:block}
+
+/* Card */
+.card{background:#fff;margin:10px 12px;border-radius:12px;padding:14px}
+.card-title{font-size:15px;font-weight:700;margin-bottom:10px}
+.card-desc{font-size:10px;color:#999;display:block;margin-bottom:10px}
+
+/* Checkin */
+.checkin-row{display:flex;justify-content:space-between;margin-bottom:10px}
+.checkin-day{flex:1;text-align:center;background:#f5f0e8;padding:8px 2px;border-radius:8px;margin:0 2px}
+.checkin-day.done{background:#C8963E;color:#fff}
+.checkin-day.today{border:2px solid #C8963E;box-shadow:0 0 8px rgba(200,150,62,.3)}
+.cd-num{font-size:14px;font-weight:800;display:block}
+.cd-label{font-size:8px;display:block}
+.btn-checkin{width:100%;background:linear-gradient(135deg,#C8963E,#A67B2E);color:#fff;border:none;padding:10px;border-radius:20px;font-size:14px;font-weight:600}
+.btn-checkin[disabled]{background:#ccc;color:#999}
+
+/* Tasks */
+.task-item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #f0ece4}
+.task-item:last-child{border-bottom:none}
+.task-emoji{font-size:18px;margin-right:10px}
+.task-name{flex:1;font-size:13px}
+.task-btn{font-size:11px;padding:5px 12px;background:#8B5E3C;color:#fff;border-radius:12px}
+.task-btn.done{background:#ccc;color:#999}
+
+/* Leaderboard */
+.lb-header{display:flex;padding:8px 0;border-bottom:1px solid #eee;font-size:11px;color:#999}
+.lb-h-rank{width:50px;text-align:center}
+.lb-h-name{flex:1}
+.lb-h-count{width:60px;text-align:center}
+.lb-item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #f5f0e8}
+.lb-rank{width:50px;text-align:center;font-size:18px}
+.lb-name{flex:1;font-size:13px;font-weight:500}
+.lb-count{width:60px;text-align:center;color:#C8963E;font-weight:700}
+
+/* Partner */
+.partner-tiers{display:flex;gap:6px;margin-bottom:12px}
+.pt-card{flex:1;background:#f5f0e8;border-radius:10px;padding:10px 6px;text-align:center}
+.pt-card.mine{border:2px solid #C8963E;background:#FFF9E6}
+.pt-name{font-size:12px;font-weight:700;display:block;color:#8B5E3C}
+.pt-target{font-size:10px;color:#666;display:block;margin:4px 0}
+.pt-rate{font-size:14px;font-weight:800;color:#C8963E;display:block}
+.partner-cta{background:#FFF9E6;padding:12px;border-radius:10px;text-align:center}
+.partner-cta-text{font-size:13px;font-weight:600;display:block;margin-bottom:8px}
+.partner-btns{display:flex;gap:8px}
+.btn-poster{flex:1;background:linear-gradient(135deg,#C8963E,#A67B2E);color:#fff;border:none;padding:8px;border-radius:16px;font-size:12px;font-weight:600}
+.btn-comm{flex:1;background:#8B5E3C;color:#fff;border:none;padding:8px;border-radius:16px;font-size:11px}
+
+/* Exchange */
+.ex-item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #f0ece4}
+.ex-item:last-child{border-bottom:none}
+.ex-emoji{font-size:22px;margin-right:10px}
+.ex-info{flex:1}
+.ex-name{font-size:13px;font-weight:600;display:block}
+.ex-desc{font-size:10px;color:#999;display:block}
+.ex-cost{font-size:12px;font-weight:800;color:#C8963E;background:#FFF9E6;padding:4px 10px;border-radius:12px;border:1px solid #C8963E}
+
+/* Poster Modal */
+.poster-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center}
+.poster-modal{width:300px;text-align:center}
+.poster-card{width:280px;height:420px;margin:0 auto;border-radius:16px;overflow:hidden}
+.poster-bg{background:linear-gradient(180deg,#5C3A1E,#8B5E3C);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:30px}
+.poster-title{font-size:24px;font-weight:800;margin-bottom:8px}
+.poster-sub{font-size:14px;opacity:.9;margin-bottom:30px}
+.poster-qr{font-size:12px;opacity:.7;margin-bottom:30px;padding:8px 20px;border:1px dashed rgba(255,255,255,.3);border-radius:8px}
+.poster-invite{font-size:16px;font-weight:700;margin-bottom:4px}
+.poster-reward{font-size:12px;opacity:.8}
+.poster-tip{color:#fff;font-size:11px;opacity:.8;margin-top:14px;display:block}
+.btn-close{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);padding:8px 30px;border-radius:20px;font-size:13px;margin-top:12px}

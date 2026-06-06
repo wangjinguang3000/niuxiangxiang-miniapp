@@ -1,0 +1,69 @@
+<view class="page">
+  <view class="hero bg-gradient" style="padding:60rpx 30rpx;color:#fff;text-align:center;">
+    <text class="text-xl font-bold">草原人宠互动季 S1</text>
+    <view style="margin-top:16rpx;font-size:28rpx;opacity:.85;">3天2晚 · 4大互动项目 · 60-100组狗狗家庭</view>
+    <view style="margin-top:30rpx;"><text class="btn btn-gold btn-lg" bindtap="onRegister">立即报名</text></view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">线上互动</text>
+    <view class="card" style="background:linear-gradient(135deg,#FFF9E6,#FFE8CC);text-align:center;padding:40rpx;" bindtap="onOnlineContest">
+      <text style="font-size:60rpx;display:block;">&#x1F3C6;</text>
+      <text style="font-size:32rpx;font-weight:800;color:#8B5E3C;display:block;margin-top:12rpx;">人宠互动预选赛</text>
+      <text style="font-size:24rpx;color:#999;display:block;margin-top:8rpx;">月度主题评选 | 上传视频参赛 | 投票赢大奖</text>
+      <view style="margin-top:20rpx;"><text class="btn btn-gold">立即参与</text></view>
+    </view>
+    <view class="card" style="background:linear-gradient(135deg,#1a1a2e,#0f3460);text-align:center;padding:40rpx;margin-top:16rpx;" bindtap="onFeed">
+      <text style="font-size:60rpx;display:block;">&#x1F415;</text>
+      <text style="font-size:32rpx;font-weight:800;color:#FFD700;display:block;margin-top:12rpx;">遛狗狗广场</text>
+      <text style="font-size:24rpx;color:rgba(255,255,255,.6);display:block;margin-top:8rpx;">看视频赚金币 | 晒出你的毛孩子 | 互动交友</text>
+      <view style="margin-top:20rpx;"><text class="btn" style="background:#FFD700;color:#1a1a2e;padding:16rpx 40rpx;border-radius:30rpx;">去逛逛</text></view>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">这不是专业犬赛</text>
+    <view class="card">
+      <text style="line-height:1.8;">这是以个人创业故事为核心的内容IP事件——由牛香香创始人一个人操办的3天2晚草原狗狗度假团。
+
+不是大而全的赛事，不是大型活动公司项目。是一个人，一家工厂，一群爱狗人的草原聚会。</text>
+    </view>
+  </view>
+  <view class="section">
+    <text class="section-title">套餐选择</text>
+    <view class="card" wx:for="{{packages}}" wx:key="name" style="margin-bottom:16rpx;">
+      <view class="flex-between">
+        <text style="font-size:32rpx;font-weight:700;">{{item.name}}</text>
+        <view><text class="price" style="font-size:40rpx;">&#xa5;{{item.price}}</text><text class="price-original">&#xa5;{{item.original}}</text></view>
+      </view>
+      <text style="color:#999;font-size:22rpx;" wx:if="{{item.desc}}">{{item.desc}}</text>
+      <view style="margin-top:16rpx;"><text wx:for="{{item.benefits}}" wx:key="*this" style="display:block;font-size:24rpx;padding:4rpx 0;">&#x2713; {{item}}</text></view>
+    </view>
+  </view>
+  <view class="section">
+    <text class="section-title">日程安排</text>
+    <view class="card" wx:for="{{schedule}}" wx:key="day" style="margin-bottom:16rpx;border-left:6rpx solid #8B5E3C;">
+      <text style="font-size:30rpx;font-weight:700;color:#8B5E3C;">{{item.day}}</text>
+      <text style="display:block;font-size:24rpx;color:#999;margin:4rpx 0 12rpx;">{{item.title}}</text>
+      <text wx:for="{{item.items}}" wx:key="*this" style="display:block;font-size:26rpx;padding:6rpx 0;">{{item}}</text>
+    </view>
+  </view>
+  <view style="padding:30rpx;"><button class="btn btn-gold btn-block btn-lg" bindtap="onRegister">立即报名参赛</button></view>
+  <view class="section">
+    <text class="section-title">赛事赞助招商</text>
+    <view class="card" style="text-align:center;background:#FFF9E6">
+      <text style="font-size:15px;font-weight:700">诚邀品牌赞助合作</text>
+      <text style="font-size:12px;display:block;margin-top:8px">60-100组精准宠物家庭 | 3天2晚沉浸式曝光 | 线上线下全渠道覆盖</text>
+    </view>
+    <view class="card" wx:for="{{sponsors}}" wx:key="name" style="margin-bottom:12px">
+      <view style="display:flex;justify-content:space-between;margin-bottom:6px">
+        <text style="font-weight:700;font-size:15px">{{item.name}}</text>
+        <view><text style="color:#C8963E;font-weight:800">&#xa5;{{item.price}}</text><text style="font-size:10px;color:#999"> {{item.limit}}</text></view>
+      </view>
+      <text style="font-size:11px;color:#999">{{item.benefits}}</text>
+    </view>
+    <view style="padding:0 10px">
+      <button class="btn btn-gold" bindtap="onSponsor" style="width:auto;margin:0">申请赞助合作</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,47 @@
+<view class="page-products">
+  <view class="hero bg-gradient">
+    <text class="hero-title">牛肝干系列</text>
+    <text class="hero-sub">高原散养牦牛 | 天然风干 | 0添加</text>
+  </view>
+
+  <!-- 砍价横幅 -->
+  <view class="banner-bar" bindtap="onBargain">
+    <text>砍价免费拿！邀请5位好友帮你砍价，最低砍到9.9元！点我发起</text>
+  </view>
+
+  <!-- 搜索+分类 -->
+  <view class="search-row">
+    <input class="search-input" placeholder="搜索牛肝干、赛事套餐..." bindinput="onSearch" value="{{searchKey}}" />
+  </view>
+  <scroll-view class="cat-scroll" scroll-x>
+    <text class="cat-tag {{activeCat==='all'?'active':''}}" bindtap="onCat" data-cat="all">全部</text>
+    <text class="cat-tag {{activeCat==='dog'?'active':''}}" bindtap="onCat" data-cat="dog">宠物零食</text>
+    <text class="cat-tag {{activeCat==='human'?'active':''}}" bindtap="onCat" data-cat="human">人食牛肉</text>
+    <text class="cat-tag {{activeCat==='event'?'active':''}}" bindtap="onCat" data-cat="event">赛事套餐</text>
+    <text class="cat-tag {{activeCat==='gift'?'active':''}}" bindtap="onCat" data-cat="gift">礼盒送礼</text>
+  </scroll-view>
+
+  <!-- 产品列表 -->
+  <view class="section-title">热销爆款</view>
+  <view class="product-list">
+    <block wx:for="{{filteredProducts}}" wx:key="id">
+      <view class="product-card" bindtap="onDetail" data-id="{{item.id}}">
+        <view class="product-img-wrap" style="background:{{item.bgColor}}"><image wx:if="{{item.image}}" class="product-img" src="{{item.image}}" mode="aspectFill" /><text wx:else class="product-emoji">{{item.emoji}}</text></view>
+        <view class="product-info">
+          <text class="product-name">{{item.name}}</text>
+          <text class="product-desc">{{item.desc}}</text>
+          <view class="product-bottom">
+            <view>
+              <text class="price">{{item.price}}</text>
+              <text class="price-original" wx:if="{{item.marketPrice}}">{{item.marketPrice}}</text>
+            </view>
+            <text class="tag tag-{{item.tagType}}">{{item.tagText}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view wx:if="{{filteredProducts.length===0}}" style="text-align:center;padding:40px;color:#999">
+    <text>没有找到相关商品</text>
+  </view>
+</view>

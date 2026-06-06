@@ -1,0 +1,84 @@
+<view class="page-index">
+  <swiper class="banner-swiper" indicator-dots="{{true}}" indicator-color="rgba(255,255,255,.5)" indicator-active-color="#fff" autoplay="{{true}}" interval="3500" circular="{{true}}">
+    <swiper-item wx:for="{{banners}}" wx:key="index" bindtap="onBanner" data-link="{{item.link}}">
+      <view class="banner-slide" style="background:{{item.bg}}">
+        <text class="banner-emoji">{{item.emoji}}</text>
+        <text class="banner-title">{{item.title}}</text>
+        <text class="banner-sub">{{item.sub}}</text>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <view class="marquee-bar">
+    <view class="marquee-inner">
+      <text>{{marqueeText}}</text>
+    </view>
+  </view>
+
+  <view class="cate-grid">
+    <view class="cate-item" wx:for="{{categories}}" wx:key="index" bindtap="onCate" data-path="{{item.path}}">
+      <text class="cate-emoji">{{item.emoji}}</text>
+      <text class="cate-name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <view class="event-card" bindtap="onEvent">
+    <view class="event-left">
+      <text class="event-title">🏆 草原人宠互动季 S1</text>
+      <text class="event-sub">早鸟1780 | 仅剩{{earlyLeft}}组 | 3天2晚</text>
+    </view>
+    <view class="btn-gold">立即报名</view>
+  </view>
+
+  <view class="section-title">🎉 福利活动</view>
+  <view class="activity-grid">
+    <view class="act-card" bindtap="onWheel">
+      <text class="act-emoji">🎰</text>
+      <text class="act-name">转盘抽奖</text>
+      <text class="act-desc">免费抽1次</text>
+    </view>
+    <view class="act-card" bindtap="onBargain">
+      <text class="act-emoji">🔪</text>
+      <text class="act-name">砍价免费拿</text>
+      <text class="act-desc">5人砍到9.9</text>
+    </view>
+    <view class="act-card" bindtap="onFlash">
+      <text class="act-emoji">⚡</text>
+      <text class="act-name">1元抢购</text>
+      <text class="act-desc">每天限量10份</text>
+    </view>
+    <view class="act-card" bindtap="onTask">
+      <text class="act-emoji">💰</text>
+      <text class="act-name">任务赚金币</text>
+      <text class="act-desc">签到领福利</text>
+    </view>
+  </view>
+
+  <view class="section-title">🥩 牛肝干系列</view>
+  <view class="product-list">
+    <block wx:for="{{hotProducts}}" wx:key="id">
+      <view class="product-card" bindtap="onDetail" data-id="{{item.id}}">
+        <view class="product-img-wrap" style="background:{{item.bgColor}}"><image wx:if="{{item.image}}" class="product-img" src="{{item.image}}" mode="aspectFill" /><text wx:else class="product-emoji">{{item.emoji}}</text></view>
+        <view class="product-info">
+          <text class="product-name">{{item.name}}</text>
+          <text class="product-desc">{{item.desc}}</text>
+          <view class="product-bottom">
+            <view>
+              <text class="price">{{item.price}}</text>
+              <text class="price-original">{{item.marketPrice}}</text>
+            </view>
+            <text class="tag tag-{{item.tagType}}">{{item.tagText}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="partner-bar" bindtap="onPartner">
+    <view class="partner-left">
+      <text class="partner-title">🤝 城市合伙人招募</text>
+      <text class="partner-desc">佣金8%-15% | 月销过万轻松赚</text>
+    </view>
+    <text class="btn-outline">了解详情</text>
+  </view>
+</view>

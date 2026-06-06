@@ -1,0 +1,122 @@
+<view class="page-community">
+  <!-- 顶部 -->
+  <view class="com-hero">
+    <view class="com-coin-badge">
+      <text class="com-coin-num">{{coins}}</text>
+      <text class="com-coin-label">金币余额</text>
+    </view>
+    <view class="com-stats">
+      <view class="com-stat">
+        <text class="com-stat-val">{{userTier}}</text>
+        <text class="com-stat-label">会员等级</text>
+      </view>
+      <view class="com-stat">
+        <text class="com-stat-val">{{invitedCount}}人</text>
+        <text class="com-stat-label">已邀请</text>
+      </view>
+      <view class="com-stat">
+        <text class="com-stat-val">{{commission}}元</text>
+        <text class="com-stat-label">待提佣金</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 签到 -->
+  <view class="card">
+    <view class="card-title">🔥 连续签到领金币</view>
+    <view class="checkin-row">
+      <block wx:for="{{checkinDays}}" wx:key="index">
+        <view class="checkin-day {{item.done?'done':''}} {{item.today?'today':''}}">
+          <text class="cd-num">+{{item.reward}}</text>
+          <text class="cd-label">第{{index+1}}天</text>
+        </view>
+      </block>
+    </view>
+    <button class="btn-checkin" bindtap="onCheckin" disabled="{{checkedToday}}">
+      {{checkedToday ? '今日已签到 ✓' : '点击签到领金币'}}
+    </button>
+  </view>
+
+  <!-- 任务 -->
+  <view class="card">
+    <view class="card-title">📋 每日任务</view>
+    <block wx:for="{{tasks}}" wx:key="index">
+      <view class="task-item" bindtap="onTask" data-id="{{index}}">
+        <text class="task-emoji">{{item.emoji}}</text>
+        <text class="task-name">{{item.name}}</text>
+        <text class="task-btn {{item.done?'done':''}}">{{item.done ? '已完成' : '+' + item.reward + '金币'}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 排行榜 -->
+  <view class="card">
+    <view class="card-title">🏅 邀请排行榜</view>
+    <view class="lb-header">
+      <text class="lb-h-rank">排名</text>
+      <text class="lb-h-name">昵称</text>
+      <text class="lb-h-count">邀请人数</text>
+    </view>
+    <block wx:for="{{leaderboard}}" wx:key="index">
+      <view class="lb-item">
+        <text class="lb-rank rank-{{index}}">{{index < 3 ? ['🥇','🥈','🥉'][index] : index+1}}</text>
+        <text class="lb-name">{{item.nickname}}</text>
+        <text class="lb-count">{{item.inviteCount}}人</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 合伙人等级 -->
+  <view class="card">
+    <view class="card-title">🤝 城市合伙人</view>
+    <view class="partner-tiers">
+      <block wx:for="{{partnerTiers}}" wx:key="index">
+        <view class="pt-card {{item.mine?'mine':''}}">
+          <text class="pt-name">{{item.name}}</text>
+          <text class="pt-target">{{item.target}}</text>
+          <text class="pt-rate">佣金{{item.rate}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="partner-cta">
+      <text class="partner-cta-text">邀请好友下单，赚取最高15%佣金！</text>
+      <view class="partner-btns">
+        <button class="btn-poster" bindtap="onInvite">📤 邀请好友</button>
+        <button class="btn-comm" bindtap="onCommission">💰 佣金转金币(1:500)</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 兑换 -->
+  <view class="card">
+    <view class="card-title">🎁 金币兑换商城</view>
+    <text class="card-desc">100金币≈1元购物价值 | 300金币=1元现金抵扣</text>
+    <block wx:for="{{exchanges}}" wx:key="index">
+      <view class="ex-item" bindtap="onExchange" data-id="{{index}}">
+        <text class="ex-emoji">{{item.emoji}}</text>
+        <view class="ex-info">
+          <text class="ex-name">{{item.name}}</text>
+          <text class="ex-desc">{{item.desc}}</text>
+        </view>
+        <text class="ex-cost">{{item.cost}}金币</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 海报弹窗 -->
+  <view class="poster-overlay" wx:if="{{showPoster}}" bindtap="onClosePoster">
+    <view class="poster-modal" catchtap="">
+      <view class="poster-card">
+        <view class="poster-bg">
+          <text class="poster-title">草原爱宠营</text>
+          <text class="poster-sub">草原人宠互动季 S1</text>
+          <text class="poster-qr">扫码加入 一起撒野</text>
+          <text class="poster-invite">邀请好友注册</text>
+          <text class="poster-reward">你得100金币+10元佣金</text>
+        </view>
+      </view>
+      <text class="poster-tip">📌 长按图片保存到相册，分享给好友</text>
+      <button class="btn-close" bindtap="onClosePoster">关闭</button>
+    </view>
+  </view>
+</view>
