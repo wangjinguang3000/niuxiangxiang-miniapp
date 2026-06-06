@@ -22,7 +22,7 @@
       <text>🎫 你是{{userTier}}，每日{{maxDailyVotes}}次免费投票（超出{{voteCost}}金币/票）</text>
     </view>
     <view class="contest-actions">
-      <view class="btn btn-primary" bindtap="onViewEntries">📋 浏览作品 & 投票</view>
+      <view class="btn btn-primary" bindtap="onViewEntries">📋 浏览作品 &amp; 投票</view>
       <view class="btn btn-gold" bindtap="onEnterContest">📤 我要投稿</view>
     </view>
   </view>
