@@ -4,7 +4,7 @@ const viral = require('../../utils/viral-engine')
 
 Page({
   data: {
-    marqueeText: '遛狗狗赚金币！看视频+1发视频+20 | 邀请好友各得金币 | 人宠互动预选赛火热报名 | 新用户注册送500金币',
+    marqueeText: '遛狗赚金币：看视频+1 发视频+20 签到领金币 | 邀请好友各得80~380金币 | 分享到群聊额外+30 | 人宠互动赛报名中',
     banners: [
       { emoji: '\u{1F3C6}', title: '草原人宠互动季S1', sub: '火热报名中！仅剩17组', bg: 'linear-gradient(135deg,#FF6B35,#F7931E)', link: '/pages/event/event' },
       { emoji: '\u{1F415}', title: '遛狗狗赚金币', sub: '看视频发视频都能赚', bg: 'linear-gradient(135deg,#1a1a2e,#0f3460)', link: '/pages/feed/feed' },
@@ -32,10 +32,10 @@ Page({
     return viral.SHARE_TEMPLATES.invite(userId)
   },
   onShareTimeline() {
-    return { 
-      title: '🐂 草原爱宠营 | 遛狗赚金币，带狗来草原撒野！',
+    return {
+      title: viral.randomShareText(),
       query: '',
-      imageUrl: '/images/share-card.jpg'
+      imageUrl: '/images/thumb_tab-event.png'
     }
   },
 
