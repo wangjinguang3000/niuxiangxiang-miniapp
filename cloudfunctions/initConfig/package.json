@@ -1,0 +1,9 @@
+{
+  "name": "initConfig",
+  "version": "1.0.0",
+  "description": "初始化配置集合 - 暗度陈仓",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}
