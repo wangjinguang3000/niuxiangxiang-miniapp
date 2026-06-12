@@ -13,7 +13,12 @@ Page({
     dailyRewards: { views: 0, likes: 0, comments: 0, shares: 0 }
   },
 
-  onLoad() {
+  onLoad(options) {
+    const config = (getApp().globalData.config) || {};
+    if (config.ugc_enabled) {
+      wx.redirectTo({ url: '/pages/webview/webview?page=feed' });
+      return;
+    }
     this.loadFeed()
     this.loadDailyStats()
   },

@@ -1,0 +1,9 @@
+<view class="page-partner-team">
+  <view class="hero">
+    <text class="hero-title">我的团队</text>
+    <text class="hero-sub">草原爱宠营 · 合伙人体系</text>
+  </view>
+  <view class="card">
+    <text class="card-text">加载中...</text>
+  </view>
+</view>

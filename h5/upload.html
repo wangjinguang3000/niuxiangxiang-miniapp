@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>草原爱宠营 - 发布</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F0E8;color:#333;padding-bottom:60px}
+.hero{background:linear-gradient(135deg,#8B5E3C,#C8963E);color:#fff;padding:25px 20px;text-align:center}
+.hero h1{font-size:20px}
+.form{padding:15px}
+.form-group{margin-bottom:15px}
+.form-label{font-size:14px;font-weight:bold;color:#8B5E3C;margin-bottom:8px;display:block}
+.form-input{width:100%;padding:12px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;background:#fff}
+.form-textarea{width:100%;padding:12px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;min-height:120px;resize:vertical;background:#fff}
+.upload-area{width:100%;height:200px;border:2px dashed #8B5E3C;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#fff;cursor:pointer}
+.upload-area .icon{font-size:48px;margin-bottom:10px}
+.upload-area .text{color:#999;font-size:14px}
+.tag-suggestions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag-chip{padding:5px 12px;background:#f0f0f0;border-radius:15px;font-size:12px;cursor:pointer}
+.tag-chip.selected{background:#8B5E3C;color:#fff}
+.submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,#8B5E3C,#C8963E);color:#fff;border:none;border-radius:25px;font-size:16px;font-weight:bold;margin-top:20px;cursor:pointer}
+.nav-tabs{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fff;border-top:1px solid #eee;z-index:99;padding:5px 0;padding-bottom:env(safe-area-inset-bottom)}
+.nav-tab{flex:1;text-align:center;padding:8px;font-size:11px;color:#999;text-decoration:none}
+.nav-tab.active{color:#8B5E3C}
+.nav-tab .icon{font-size:22px;display:block}
+</style>
+</head>
+<body>
+<div class="hero"><h1>发布作品</h1><p style="font-size:13px;opacity:0.85;margin-top:5px">秀出你和毛孩子的精彩瞬间</p></div>
+<div class="form">
+  <div class="form-group">
+    <label class="form-label">上传视频/图片</label>
+    <div class="upload-area" onclick="triggerUpload()">
+      <div class="icon">📷</div>
+      <div class="text">点击上传视频（最长60秒）</div>
+    </div>
+    <input type="file" id="fileInput" accept="video/*,image/*" style="display:none" onchange="handleFile(event)">
+  </div>
+  <div class="form-group">
+    <label class="form-label">标题</label>
+    <input class="form-input" id="titleInput" placeholder="给你的作品起个标题..." maxlength="50">
+  </div>
+  <div class="form-group">
+    <label class="form-label">描述</label>
+    <textarea class="form-textarea" id="descInput" placeholder="分享一下你和毛孩子的故事..."></textarea>
+  </div>
+  <div class="form-group">
+    <label class="form-label">标签</label>
+    <div class="tag-suggestions" id="tagSuggestions">
+    </div>
+  </div>
+  <button class="submit-btn" onclick="submit()">发布作品 +20金币</button>
+</div>
+<div class="nav-tabs">
+  <a class="nav-tab" href="community.html"><span class="icon">🏠</span>社区</a>
+  <a class="nav-tab" href="feed.html"><span class="icon">🎬</span>遛狗狗</a>
+  <a class="nav-tab active" href="upload.html"><span class="icon">📤</span>发布</a>
+</div>
+<script>
+var tags = ['金毛','哈士奇','柯基','边牧','泰迪','萨摩耶','柴犬','拉布拉多','搞笑','日常','训练','互动','萌宠','草原','户外'];
+var selectedTags = [];
+var html = '';
+tags.forEach(function(t) {
+  html += '<span class="tag-chip" onclick="toggleTag(this,\'' + t + '\')">' + t + '</span>';
+});
+document.getElementById('tagSuggestions').innerHTML = html;
+
+function toggleTag(el, tag) {
+  var idx = selectedTags.indexOf(tag);
+  if (idx > -1) { selectedTags.splice(idx,1); el.classList.remove('selected'); }
+  else if (selectedTags.length < 5) { selectedTags.push(tag); el.classList.add('selected'); }
+  else { alert('最多选择5个标签'); }
+}
+
+function triggerUpload() { document.getElementById('fileInput').click(); }
+
+function handleFile(e) {
+  var file = e.target.files[0];
+  if (file) {
+    var area = document.querySelector('.upload-area');
+    area.innerHTML = '<div class="icon">✅</div><div class="text">已选择: ' + file.name + '</div>';
+  }
+}
+
+function submit() {
+  var title = document.getElementById('titleInput').value.trim();
+  if (!title) { alert('请输入标题'); return; }
+  alert('发布成功！+20金币已到账');
+  var isWechat = /miniProgram/i.test(navigator.userAgent);
+  if (isWechat && wx && wx.miniProgram) {
+    wx.miniProgram.postMessage({ data: { type:'upload', title:title } });
+    wx.miniProgram.navigateBack();
+  } else {
+    window.location.href = 'community.html';
+  }
+}
+</script>
+</body>
+</html>

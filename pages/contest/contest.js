@@ -169,6 +169,11 @@ Page({
   },
 
   onEnterContest() {
+    const config = (getApp().globalData.config) || {};
+    if (config.ugc_enabled) {
+      wx.navigateTo({ url: '/pages/webview/webview?page=upload' });
+      return;
+    }
     const phase = this.data.currentContest ? this.data.currentContest.phase : ''
     if (phase !== 'submit') {
       wx.showToast({ title: '当前不在投稿期', icon: 'none' }); return

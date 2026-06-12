@@ -49,7 +49,12 @@ Page({
     posterImage: ''
   },
 
-  onLoad() {
+  onLoad(options) {
+    const config = (getApp().globalData.config) || {};
+    if (config.ugc_enabled) {
+      wx.redirectTo({ url: '/pages/webview/webview?page=community' });
+      return;
+    }
     this.loadUserData()
     this.loadLeaderboard()
   },

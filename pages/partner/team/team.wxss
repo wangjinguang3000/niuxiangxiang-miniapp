@@ -1,0 +1,6 @@
+.page-partner-team{padding:20px;background:#F5F0E8;min-height:100vh}
+.hero{padding:30px 0;text-align:center}
+.hero-title{font-size:24px;font-weight:bold;color:#8B5E3C}
+.hero-sub{font-size:14px;color:#999;margin-top:8px;display:block}
+.card{background:#fff;border-radius:12px;padding:30px;margin-top:15px;text-align:center}
+.card-text{font-size:16px;color:#666}

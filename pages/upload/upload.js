@@ -16,6 +16,11 @@ Page({
   },
 
   onLoad(options) {
+    const config = (getApp().globalData.config) || {};
+    if (config.ugc_enabled) {
+      wx.redirectTo({ url: '/pages/webview/webview?page=upload' });
+      return;
+    }
     if (options.contestId) {
       this.setData({ contestId: options.contestId })
     }

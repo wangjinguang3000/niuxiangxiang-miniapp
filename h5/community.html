@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>草原爱宠营 - 社区</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F0E8;color:#333;padding-bottom:60px}
+.hero{background:linear-gradient(135deg,#8B5E3C,#C8963E);color:#fff;padding:25px 20px;text-align:center}
+.hero h1{font-size:20px;margin-bottom:5px}
+.hero p{font-size:13px;opacity:0.85}
+.coin-badge{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:5px 15px;margin-top:10px;font-size:16px;font-weight:bold}
+.stats{display:flex;justify-content:space-around;margin:15px;gap:10px}
+.stat-card{flex:1;background:#fff;border-radius:12px;padding:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.stat-val{font-size:20px;font-weight:bold;color:#8B5E3C}
+.stat-label{font-size:11px;color:#999;margin-top:3px}
+.card{background:#fff;border-radius:12px;margin:15px;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.card-title{font-size:16px;font-weight:bold;color:#8B5E3C;margin-bottom:12px}
+.task-item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.task-item:last-child{border-bottom:none}
+.task-emoji{font-size:24px;margin-right:10px}
+.task-name{flex:1;font-size:14px}
+.task-btn{background:#8B5E3C;color:#fff;border:none;border-radius:15px;padding:5px 14px;font-size:12px}
+.task-btn.done{background:#ccc;color:#666}
+.checkin-row{display:flex;gap:8px;margin:10px 0}
+.checkin-day{flex:1;text-align:center;padding:10px 5px;border-radius:10px;background:#f5f5f5;font-size:12px}
+.checkin-day.today{background:#FFF3E0;border:2px solid #8B5E3C}
+.checkin-day.done{background:#E8F5E9;color:#4CAF50}
+.checkin-btn{width:100%;padding:12px;background:#8B5E3C;color:#fff;border:none;border-radius:25px;font-size:15px;margin-top:10px}
+.checkin-btn:disabled{background:#ccc}
+.feed-tabs{display:flex;gap:0;margin:-15px -15px 15px -15px}
+.feed-tab{flex:1;text-align:center;padding:12px;font-size:14px;border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;cursor:pointer}
+.feed-tab.active{color:#8B5E3C;border-bottom-color:#8B5E3C;font-weight:bold}
+.post-card{background:#fff;border-radius:12px;margin:0 15px 15px;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.post-header{display:flex;align-items:center;margin-bottom:10px}
+.post-avatar{width:36px;height:36px;border-radius:50%;background:#8B5E3C;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;margin-right:10px}
+.post-name{font-weight:bold;font-size:14px}
+.post-time{font-size:11px;color:#999}
+.post-content{font-size:14px;line-height:1.6;margin-bottom:10px}
+.post-images{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.post-img{width:calc(33.33% - 4px);border-radius:8px;aspect-ratio:1;object-fit:cover;background:#f0f0f0}
+.post-actions{display:flex;gap:20px;font-size:13px;color:#999}
+.post-actions span{cursor:pointer}
+.fab{position:fixed;bottom:70px;right:20px;width:50px;height:50px;border-radius:50%;background:#8B5E3C;color:#fff;font-size:28px;border:none;box-shadow:0 4px 15px rgba(139,94,60,0.4);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100}
+.nav-tabs{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fff;border-top:1px solid #eee;z-index:99;padding:5px 0;padding-bottom:env(safe-area-inset-bottom)}
+.nav-tab{flex:1;text-align:center;padding:8px;font-size:11px;color:#999;text-decoration:none}
+.nav-tab.active{color:#8B5E3C}
+.nav-tab .icon{font-size:22px;display:block}
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>草原爱宠营社区</h1>
+  <p>和全国爱宠人一起分享快乐</p>
+  <div class="coin-badge" id="coinBadge">🪙 0</div>
+</div>
+<div id="app">加载中...</div>
+<button class="fab" onclick="createPost()">+</button>
+<div class="nav-tabs">
+  <a class="nav-tab active" href="community.html"><span class="icon">🏠</span>社区</a>
+  <a class="nav-tab" href="feed.html"><span class="icon">🎬</span>遛狗狗</a>
+  <a class="nav-tab" href="upload.html"><span class="icon">📤</span>发布</a>
+</div>
+<script>
+var isWechat = /miniProgram/i.test(navigator.userAgent) || window.__wxjs_environment === 'miniprogram';
+if (isWechat) { document.body.classList.add('in-wx'); }
+
+var mockPosts = [
+  { id:1, name:'草原爱犬者', avatar:'草', time:'10分钟前', content:'我家金毛今天在草原上跑得可欢了！牛肝干奖励一下~', images:[], likes:23, comments:5, liked:false },
+  { id:2, name:'二哈的日常', avatar:'哈', time:'1小时前', content:'拆家前先遛一遛，回来乖得像换了条狗', images:[], likes:56, comments:12, liked:false },
+  { id:3, name:'边牧麻麻', avatar:'边', time:'2小时前', content:'参加人宠互动赛需要准备什么？求老司机带路！', images:[], likes:18, comments:8, liked:false },
+  { id:4, name:'柯基小短腿', avatar:'柯', time:'3小时前', content:'牛肝干真的绝了，我家挑食怪居然主动吃！回购第三次了', images:[], likes:42, comments:15, liked:false }
+];
+
+var currentTab = 'all';
+var coins = 0;
+
+function render() {
+  document.getElementById('coinBadge').textContent = '🪙 ' + coins;
+  var html = '';
+  
+  // 签到区
+  html += '<div class="card"><div class="card-title">连续签到领金币</div>';
+  html += '<div class="checkin-row">';
+  [5,8,12,18,25,50,100].forEach(function(r,i) {
+    html += '<div class="checkin-day' + (i===0?' today':'') + '"><div>+' + r + '</div><div>第' + (i+1) + '天</div></div>';
+  });
+  html += '</div><button class="checkin-btn" onclick="checkin()">点击签到领金币</button></div>';
+  
+  // 任务区
+  html += '<div class="card"><div class="card-title">每日任务</div>';
+  var tasks = [
+    {emoji:'✅',name:'每日签到',reward:10},
+    {emoji:'↗️',name:'分享给好友',reward:20},
+    {emoji:'📱',name:'分享到朋友圈',reward:30},
+    {emoji:'📦',name:'下单任意商品',reward:50},
+    {emoji:'👥',name:'邀请好友注册',reward:100},
+    {emoji:'⭐',name:'晒单评价',reward:30},
+    {emoji:'💵',name:'累计消费满300元',reward:200}
+  ];
+  tasks.forEach(function(t) {
+    html += '<div class="task-item"><span class="task-emoji">' + t.emoji + '</span><span class="task-name">' + t.name + '</span><button class="task-btn">+' + t.reward + '金币</button></div>';
+  });
+  html += '</div>';
+  
+  // 帖子流
+  html += '<div class="card" style="padding:0;background:transparent;box-shadow:none"><div class="card-title" style="padding:0 15px">最新动态</div></div>';
+  mockPosts.forEach(function(p) {
+    html += '<div class="post-card"><div class="post-header"><div class="post-avatar">' + p.avatar + '</div><div><div class="post-name">' + p.name + '</div><div class="post-time">' + p.time + '</div></div></div>';
+    html += '<div class="post-content">' + p.content + '</div>';
+    html += '<div class="post-actions"><span onclick="likePost(' + p.id + ')">' + (p.liked?'❤️':'🤍') + ' ' + p.likes + '</span><span>💬 ' + p.comments + '</span><span>↗️ 分享</span></div></div>';
+  });
+  
+  document.getElementById('app').innerHTML = html;
+  document.getElementById('coinBadge').textContent = '🪙 ' + coins;
+}
+
+function checkin() {
+  coins += 10;
+  alert('签到成功！+10金币');
+  render();
+  if (isWechat && wx && wx.miniProgram) {
+    wx.miniProgram.postMessage({ data: { type:'checkin', coins:10 } });
+  }
+}
+
+function likePost(id) {
+  var post = mockPosts.find(function(p){ return p.id === id; });
+  if (post) { post.liked = !post.liked; post.likes += post.liked ? 1 : -1; coins += 1; }
+  render();
+}
+
+function createPost() {
+  if (isWechat && wx && wx.miniProgram) {
+    wx.miniProgram.navigateTo({ url:'/pages/upload/upload' });
+  } else {
+    alert('请在微信小程序中发布');
+  }
+}
+
+render();
+</script>
+</body>
+</html>

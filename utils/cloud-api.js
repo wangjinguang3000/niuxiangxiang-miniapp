@@ -360,7 +360,62 @@ const api = {
       const res = await db.collection('votes').where({ _openid: '{openid}', contestId, date: today }).get()
       return { todayVotes: res.data.length, votedIds: res.data.map(v => v.videoId) }
     } catch(e) { return { todayVotes: 0, votedIds: [] } }
-  }
+  },
+
+  // ===== 暗度陈仓：配置管理 =====
+  async getConfig() {
+    const db = getDB(); if (!db) {
+      const cached = wx.getStorageSync('config');
+      return cached || { ugc_enabled: false, review_mode: true };
+    }
+    try {
+      const res = await db.collection('config').doc('app').get();
+      const config = res.data || {};
+      wx.setStorageSync('config', config);
+      return config;
+    } catch(e) {
+      console.log('[API] Config collection not ready:', e.message);
+      return { ugc_enabled: false, review_mode: true };
+    }
+  },
+
+  async toggleUGC(enabled) {
+    const db = getDB(); if (!db) throw new Error('Cloud not ready');
+    try {
+      await db.collection('config').doc('app').update({
+        data: { ugc_enabled: enabled, updatedAt: new Date() }
+      });
+      wx.setStorageSync('config', { 
+        ...(wx.getStorageSync('config') || {}), 
+        ugc_enabled: enabled 
+      });
+      return { success: true };
+    } catch(e) {
+      try {
+        await db.collection('config').add({
+          data: { _id: 'app', ugc_enabled: enabled, review_mode: true, updatedAt: new Date() }
+        });
+        return { success: true, created: true };
+      } catch(e2) {
+        throw new Error('Config update failed: ' + e.message);
+      }
+    }
+  },
+
+  async setConfig(data) {
+    const db = getDB(); if (!db) throw new Error('Cloud not ready');
+    try {
+      await db.collection('config').doc('app').update({
+        data: { ...data, updatedAt: new Date() }
+      });
+      const cached = wx.getStorageSync('config') || {};
+      wx.setStorageSync('config', { ...cached, ...data });
+      return { success: true };
+    } catch(e) {
+      throw new Error('Config update failed: ' + e.message);
+    }
+  },
+
 }
 
 module.exports = api

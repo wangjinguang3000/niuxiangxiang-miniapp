@@ -11,7 +11,13 @@
     "pages/admin/admin",
     "pages/feed/feed",
     "pages/contest/contest",
-    "pages/upload/upload"
+    "pages/upload/upload",
+    "pages/webview/webview",
+    "pages/partner/apply/apply",
+    "pages/partner/dashboard/dashboard",
+    "pages/partner/income/income",
+    "pages/partner/team/team",
+    "pages/partner/tools/tools"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -26,10 +32,30 @@
     "backgroundColor": "#fff",
     "borderStyle": "white",
     "list": [
-      { "pagePath": "pages/index/index", "text": "首页", "iconPath": "images/tab-home.png", "selectedIconPath": "images/tab-home-active.png" },
-      { "pagePath": "pages/event/event", "text": "赛事", "iconPath": "images/tab-event.png", "selectedIconPath": "images/tab-event-active.png" },
-      { "pagePath": "pages/products/products", "text": "商城", "iconPath": "images/tab-shop.png", "selectedIconPath": "images/tab-shop-active.png" },
-      { "pagePath": "pages/user/user", "text": "我的", "iconPath": "images/tab-user.png", "selectedIconPath": "images/tab-user-active.png" }
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/event/event",
+        "text": "赛事",
+        "iconPath": "images/tab-event.png",
+        "selectedIconPath": "images/tab-event-active.png"
+      },
+      {
+        "pagePath": "pages/products/products",
+        "text": "商城",
+        "iconPath": "images/tab-shop.png",
+        "selectedIconPath": "images/tab-shop-active.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "images/tab-user.png",
+        "selectedIconPath": "images/tab-user-active.png"
+      }
     ]
   },
   "sitemapLocation": "sitemap.json"

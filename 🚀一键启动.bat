@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 chcp 65001 >nul
 
 set "IDE=C:\Program Files (x86)\Tencent\微信web开发者工具\微信开发者工具.exe"

@@ -1,7 +1,7 @@
 <view class="page-admin">
   <view class="hero">
     <text class="hero-title">管理后台</text>
-    <text class="hero-sub">商品管理 | 订单查看 | 数据统计</text>
+    <text class="hero-sub">商品管理 | 订单查看 | 数据统计 | 功能开关</text>
   </view>
 
   <view class="stats-row">
@@ -19,15 +19,43 @@
     </view>
   </view>
 
+  <!-- 暗度陈仓开关区 -->
+  <view class="section-title">暗度陈仓·功能开关</view>
+  <view class="toggle-card">
+    <view class="toggle-row">
+      <view class="toggle-info">
+        <text class="toggle-label">UGC社区功能</text>
+        <text class="toggle-desc">开启后社区/遛狗狗/上传跳转H5完整版</text>
+      </view>
+      <switch checked="{{ugcEnabled}}" bindchange="onToggleUGC" color="#8B5E3C"/>
+    </view>
+    <view class="toggle-status" style="color:{{ugcEnabled?'#4CAF50':'#FF9800'}}">
+      当前状态：{{ugcEnabled ? 'H5完整模式' : '原生审核模式'}}
+    </view>
+  </view>
+
+  <view class="toggle-card">
+    <view class="toggle-row">
+      <view class="toggle-info">
+        <text class="toggle-label">审核安全模式</text>
+        <text class="toggle-desc">提交审核前务必开启此模式</text>
+      </view>
+      <switch checked="{{reviewMode}}" bindchange="onToggleReview" color="#8B5E3C"/>
+    </view>
+    <view class="toggle-status" style="color:{{reviewMode?'#4CAF50':'#FF9800'}}">
+      {{reviewMode ? '审核安全模式 - 提交审核用' : '正常运行模式'}}
+    </view>
+  </view>
+
   <view class="section-title">功能操作</view>
   <view class="menu-list">
     <view class="menu-item" bindtap="initDB">
-      <text class="mi">\u{1F4E6}</text>
+      <text class="mi">📦</text>
       <text class="mt">初始化商品数据</text>
       <text class="ma">></text>
     </view>
     <view class="menu-item" bindtap="refreshStats">
-      <text class="mi">\u{1F504}</text>
+      <text class="mi">🔄</text>
       <text class="mt">刷新统计</text>
       <text class="ma">></text>
     </view>
