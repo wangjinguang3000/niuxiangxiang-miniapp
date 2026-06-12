@@ -2,7 +2,7 @@
 Page({
   data: { src: "", loaded: false },
   onLoad(options) {
-    const H5 = "https://cloudbase-4gvjj5qn247cd61a-1304825656.tcloudbaseapp.com/h5/";
+    const H5 = "https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/";
     const page = options.page || "community";
     let src = H5 + page + ".html?_t=" + Date.now();
     if (options.id) src += "&id=" + encodeURIComponent(options.id);

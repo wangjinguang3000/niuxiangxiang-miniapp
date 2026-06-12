@@ -1,37 +1,75 @@
-// 初始化CloudBase数据库配置集合
+// CloudBase 数据库配置初始化
 // 用法: node deploy/init-config.js
-const { execSync } = require('child_process');
 
 const ENV_ID = 'cloudbase-4gvjj5qn247cd61a';
 
-console.log('初始化数据库配置...');
-console.log('环境ID:', ENV_ID);
+async function main() {
+  console.log('初始化数据库配置...');
+  console.log('环境ID:', ENV_ID);
 
-try {
-  // Create config collection with initial doc
-  // Using tcb db command
-  const cmd = 'tcb db createCollection -e ' + ENV_ID + ' config 2>&1';
+  let cloudbase;
   try {
-    execSync(cmd, { encoding: 'utf8', stdio: 'pipe' });
-    console.log('  config集合已创建');
+    cloudbase = require('@cloudbase/node-sdk');
   } catch(e) {
-    if (e.stderr && e.stderr.includes('already exists')) {
-      console.log('  config集合已存在，跳过创建');
-    } else {
-      console.log('  config集合: ' + (e.stderr || e.message));
-    }
+    console.log('[!] @cloudbase/node-sdk 未安装，正在安装...');
+    require('child_process').execSync('npm install @cloudbase/node-sdk --save', { 
+      cwd: __dirname + '/..',
+      stdio: 'inherit' 
+    });
+    cloudbase = require('@cloudbase/node-sdk');
   }
 
-  // Add/update the app doc
-  const updateCmd = 'tcb db update -e ' + ENV_ID + ' config app \'{"ugc_enabled":false,"review_mode":true,"partner_enabled":true,"createdAt":{"$date":"' + new Date().toISOString() + '"}}\' 2>&1';
-  console.log('  设置初始配置: ugc_enabled=false, review_mode=true');
-  
-  console.log('\n数据库初始化完成!');
-  console.log('配置状态:');
-  console.log('  ugc_enabled: false (审核安全模式)');
-  console.log('  review_mode: true (审核通过后关闭)');
-  console.log('  partner_enabled: true (合伙人功能开启)');
-} catch(e) {
-  console.error('初始化失败:', e.message);
-  process.exit(1);
+  const app = cloudbase.init({ env: ENV_ID });
+  const db = app.database();
+
+  try {
+    // Try to get config doc
+    try {
+      const res = await db.collection('config').doc('app').get();
+      if (res.data && res.data.length > 0) {
+        // Update existing
+        await db.collection('config').doc('app').update({
+          ugc_enabled: false,
+          review_mode: true,
+          partner_enabled: true,
+          h5_base: 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/',
+          updatedAt: new Date()
+        });
+        console.log('[OK] config集合已更新');
+      }
+    } catch(e) {
+      // Not exist, create collection + doc
+      try {
+        await db.createCollection('config');
+        console.log('  config集合已创建');
+      } catch(e2) {
+        console.log('  config集合已存在');
+      }
+      await db.collection('config').add({
+        _id: 'app',
+        ugc_enabled: false,
+        review_mode: true,
+        partner_enabled: true,
+        h5_base: 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      });
+      console.log('[OK] config文档已创建');
+    }
+
+    console.log('');
+    console.log('数据库初始化完成!');
+    console.log('配置状态:');
+    console.log('  ugc_enabled: false (审核安全模式)');
+    console.log('  review_mode: true');
+    console.log('  partner_enabled: true');
+  } catch(e) {
+    console.error('[X] 初始化失败:', e.message);
+    console.log('');
+    console.log('备用方案: 在微信开发者工具中');
+    console.log('  右键 cloudfunctions/initConfig -> 上传并部署');
+    process.exit(1);
+  }
 }
+
+main();

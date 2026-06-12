@@ -1,6 +1,6 @@
 // UGC开关配置读取器 - 明修栈道暗度陈仓
 // 审核期间ugc_enabled=false，审核通过后云数据库开关启用H5功能
-const H5_BASE = 'https://cloudbase-4gvjj5qn247cd61a-1304825656.tcloudbaseapp.com/h5/';
+const H5_BASE = 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/';
 
 function getDB() {
   try { if (wx.cloud) return wx.cloud.database(); } catch(e) {}

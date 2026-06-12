@@ -16,7 +16,7 @@ exports.main = async (event, context) => {
           ugc_enabled: false,
           review_mode: true,
           partner_enabled: true,
-          h5_base: 'https://cloudbase-4gvjj5qn247cd61a-1304825656.tcloudbaseapp.com/h5/',
+          h5_base: 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/',
           updatedAt: new Date()
         }
       });
@@ -29,7 +29,7 @@ exports.main = async (event, context) => {
           ugc_enabled: false,
           review_mode: true,
           partner_enabled: true,
-          h5_base: 'https://cloudbase-4gvjj5qn247cd61a-1304825656.tcloudbaseapp.com/h5/',
+          h5_base: 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/',
           createdAt: new Date(),
           updatedAt: new Date()
         }
