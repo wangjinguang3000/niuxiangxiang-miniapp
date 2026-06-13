@@ -1,0 +1,7 @@
+.prod-page{padding:15px;background:#F5F0E8;min-height:100vh}
+.prod-item{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:10px;padding:15px;margin-bottom:10px}
+.pi-name{font-size:15px;font-weight:bold;display:block}
+.pi-price{font-size:12px;color:#999;margin-top:4px;display:block}
+.pi-actions{display:flex;align-items:center;gap:12px}
+.pi-del{color:#E74C3C;font-size:18px;padding:5px}
+.add-btn{background:#8B5E3C;color:#fff;border-radius:25px;margin-top:20px}

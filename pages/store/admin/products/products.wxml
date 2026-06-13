@@ -1,0 +1,13 @@
+<view class="prod-page">
+  <view class="prod-item" wx:for="{{products}}" wx:key="_id">
+    <view class="pi-left">
+      <text class="pi-name">{{item.name}}</text>
+      <text class="pi-price">¥{{item.price}} | {{item.category}}</text>
+    </view>
+    <view class="pi-actions">
+      <switch checked="{{item.status==='on'}}" bindchange="onToggle" data-idx="{{index}}" color="#8B5E3C"/>
+      <text class="pi-del" bindtap="onDelete" data-idx="{{index}}">✕</text>
+    </view>
+  </view>
+  <button class="add-btn" bindtap="onAdd">+ 添加产品</button>
+</view>

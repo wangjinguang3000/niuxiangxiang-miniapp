@@ -14,6 +14,12 @@ App({
     this.initCloud();
     this.loadAppConfig();
   },
+  onShow(options) {
+    // Handle store QR code entry
+    if (options && options.query && options.query.sid) {
+      wx.navigateTo({ url: '/pages/store/index/index?sid=' + options.query.sid });
+    }
+  },
 
   // 初始化云开发
   initCloud() {
