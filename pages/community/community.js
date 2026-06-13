@@ -23,15 +23,10 @@ Page({
     ]
   },
   onLoad(options) {
-    const config = app.globalData.config || {};
-    this.setData({ isReviewMode: !config.ugc_enabled });
-    if (config.ugc_enabled) {
-      wx.redirectTo({ url: '/pages/webview/webview?page=community' });
-      return;
-    }
+    if (this.checkUGC()) return;
     this.loadUserData();
   },
-  onShow() { this.loadUserData(); },
+  onShow() { if (this.checkUGC()) return; this.loadUserData(); },
   loadUserData() {
     const user = app.globalData.userInfo || wx.getStorageSync('user') || {};
     const coins = app.globalData.coins || user.coins || 0;
@@ -73,6 +68,15 @@ Page({
         }
       }
     });
+  },
+  
+  checkUGC() {
+    const config = getApp().globalData.config || wx.getStorageSync('config') || {};
+    if (config.ugc_enabled) {
+      wx.redirectTo({ url: '/pages/webview/webview?page=community' });
+      return true;
+    }
+    return false;
   },
   onShareAppMessage() {
     return { title: '草原爱宠营 | 签到领金币兑好礼！', path: '/pages/index/index' };

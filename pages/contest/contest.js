@@ -3,13 +3,9 @@ const api = require('../../utils/cloud-api')
 
 Page({
   data: { isReviewMode: true, currentContest: null, countdown: '' },
+  onShow() { this.checkUGC(); },
   onLoad(options) {
-    const config = app.globalData.config || {};
-    this.setData({ isReviewMode: !config.ugc_enabled });
-    if (config.ugc_enabled) {
-      wx.redirectTo({ url: '/pages/webview/webview?page=contest' });
-      return;
-    }
+    if (this.checkUGC()) return;
     this.loadContests();
   },
   async loadContests() {
@@ -32,6 +28,15 @@ Page({
     };
     tick();
     setInterval(tick, 60000);
+  },
+  
+  checkUGC() {
+    const config = getApp().globalData.config || wx.getStorageSync('config') || {};
+    if (config.ugc_enabled) {
+      wx.redirectTo({ url: '/pages/webview/webview?page=contest' });
+      return true;
+    }
+    return false;
   },
   onShareAppMessage() {
     return { title: '草原人宠互动季S1 - 火热报名中！', path: '/pages/event/event' };
