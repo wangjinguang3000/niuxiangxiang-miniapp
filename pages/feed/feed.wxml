@@ -1,100 +1,19 @@
 <view class="feed-page">
-  <!-- 顶部Tab -->
-  <view class="feed-tabs">
-    <view class="tab-item {{currentTab==='hot'?'active':''}}" bindtap="onTabChange" data-tab="hot">热门</view>
-    <view class="tab-item {{currentTab==='new'?'active':''}}" bindtap="onTabChange" data-tab="new">最新</view>
-    <view class="tab-item {{currentTab==='mine'?'active':''}}" bindtap="onTabChange" data-tab="mine">我的</view>
+  <view class="safe-hero">
+    <text class="safe-emoji">🐾</text>
+    <text class="safe-title">草原爱宠营</text>
+    <text class="safe-desc">宠物赛事·草原互动·健康零食</text>
   </view>
-
-  <!-- 视频滑动区 -->
-  <swiper class="video-swiper" vertical="{{true}}" bindchange="onSwiperChange" current="{{currentIndex}}">
-    <swiper-item wx:for="{{videos}}" wx:key="_id">
-      <view class="video-container">
-        <!-- 视频区域（无视频时显示占位） -->
-        <view class="video-placeholder" wx:if="{{!item.videoUrl}}" style="background:linear-gradient(135deg,{{index%2===0?'#1a1a2e,#0f3460':'#2d1b2e,#4a1942'}})">
-          <view class="placeholder-content">
-            <text class="placeholder-emoji">{{item.tags[0]==='金毛'?'🐕':item.tags[0]==='哈士奇'?'🐺':item.tags[0]==='边牧'?'🐑':'🐶'}}</text>
-            <text class="placeholder-title">{{item.title}}</text>
-            <text class="placeholder-author">@{{item.author.nickname}}</text>
-          </view>
-        </view>
-        <video wx:else class="video-player" src="{{item.videoUrl}}" object-fit="cover" autoplay loop controls="{{false}}" show-center-play-btn="{{false}}" show-play-btn="{{false}}" enable-progress-gesture="{{false}}"></video>
-
-        <!-- 右侧互动栏 -->
-        <view class="side-actions">
-          <view class="side-item" bindtap="onLike">
-            <view class="side-icon-wrap {{item.isLiked?'liked':''}}">
-              <text class="side-icon">{{item.isLiked?'❤️':'🤍'}}</text>
-            </view>
-            <text class="side-count">{{item.displayLikes}}</text>
-            <text class="side-coin">+1🪙</text>
-          </view>
-          <view class="side-item" bindtap="onComment">
-            <view class="side-icon-wrap"><text class="side-icon">💬</text></view>
-            <text class="side-count">{{item.displayComments}}</text>
-            <text class="side-coin">+2🪙</text>
-          </view>
-          <view class="side-item">
-            <button class="side-share-btn" open-type="share" bindtap="onShare">
-              <view class="side-icon-wrap"><text class="side-icon">↗️</text></view>
-            </button>
-            <text class="side-count">{{item.displayViews}}</text>
-            <text class="side-coin">+5🪙</text>
-          </view>
-        </view>
-
-        <!-- 底部信息 -->
-        <view class="video-info">
-          <view class="author-row">
-            <view class="author-avatar">{{item.author.nickname.charAt(0)}}</view>
-            <text class="author-name">@{{item.author.nickname}}</text>
-          </view>
-          <text class="video-title">{{item.title}}</text>
-          <view class="video-tags" wx:if="{{item.tags.length>0}}">
-            <text class="tag" wx:for="{{item.tags}}" wx:key="*this">#{{item}}</text>
-          </view>
-          <view class="video-meta">
-            <text>👁 {{item.displayViews}}次观看</text>
-            <text style="margin-left:16rpx;">⏱ {{item.displayTime}}</text>
-          </view>
-        </view>
-      </view>
-    </swiper-item>
-  </swiper>
-
-  <!-- 每日统计条 -->
-  <view class="daily-bar">
-    <text>今日收益：👁{{dailyRewards.views}}/50 ❤️{{dailyRewards.likes}}/30 💬{{dailyRewards.comments}}/20 ↗️{{dailyRewards.shares}}/5</text>
+  <view class="safe-card" bindtap="onGoEvent">
+    <text class="safe-card-title">草原人宠互动季 S1</text>
+    <text class="safe-card-desc">锡林郭勒草原·3天2晚</text>
+    <text class="safe-card-desc">人宠互动·趣味竞赛·烤全羊</text>
+    <text class="safe-card-cta">立即报名</text>
   </view>
-
-  <!-- 发布按钮 -->
-  <view class="upload-fab" bindtap="onUpload">
-    <text class="fab-icon">+</text>
-  </view>
-
-  <!-- 评论弹窗 -->
-  <view class="comment-modal {{showComments?'show':''}}">
-    <view class="comment-overlay" bindtap="onCloseComments"></view>
-    <view class="comment-panel">
-      <view class="comment-header">
-        <text class="comment-title">评论 ({{comments.length}})</text>
-        <text class="comment-close" bindtap="onCloseComments">✕</text>
-      </view>
-      <scroll-view class="comment-list" scroll-y>
-        <view class="comment-item" wx:for="{{comments}}" wx:key="_id">
-          <view class="comment-avatar">{{item.author.nickname.charAt(0)}}</view>
-          <view class="comment-body">
-            <text class="comment-name">{{item.author.nickname}}</text>
-            <text class="comment-text">{{item.content}}</text>
-            <text class="comment-time">{{item.createdAt}}</text>
-          </view>
-        </view>
-        <view class="comment-empty" wx:if="{{comments.length===0}}">暂无评论，来说两句吧</view>
-      </scroll-view>
-      <view class="comment-input-row">
-        <input class="comment-input" placeholder="说点什么...（至少5字，+2金币）" value="{{commentText}}" bindinput="onCommentInput" confirm-type="send" bindconfirm="onSendComment" maxlength="200"/>
-        <view class="comment-send" bindtap="onSendComment">发送</view>
-      </view>
-    </view>
+  <view class="safe-card" bindtap="onGoShop">
+    <text class="safe-card-title">牛肝干系列</text>
+    <text class="safe-card-desc">高原散养·0添加·犬猫通用</text>
+    <text class="safe-card-desc">80g/240g/480g 三款可选</text>
+    <text class="safe-card-cta">立即选购</text>
   </view>
 </view>

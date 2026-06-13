@@ -64,3 +64,14 @@
 .comment-input-row { display:flex; align-items:center; padding:16rpx 20rpx; border-top:1rpx solid rgba(255,255,255,.1); background:#1a1a2e; }
 .comment-input { flex:1; background:rgba(255,255,255,.1); border-radius:30rpx; padding:14rpx 24rpx; color:#fff; font-size:26rpx; }
 .comment-send { color:#FFD700; font-size:28rpx; font-weight:700; padding:0 20rpx; }
+
+/* 审核安全模式样式 */
+.safe-hero{text-align:center;padding:60px 30px}
+.safe-emoji{font-size:64px;display:block;margin-bottom:15px}
+.safe-title{font-size:22px;font-weight:bold;color:#8B5E3C;display:block;margin-bottom:8px}
+.safe-desc{font-size:14px;color:#999;display:block}
+.safe-card{background:#fff;border-radius:12px;padding:20px;margin:0 15px 15px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.safe-card-title{font-size:18px;font-weight:bold;color:#8B5E3C;display:block;margin-bottom:8px}
+.safe-card-desc{font-size:14px;color:#666;display:block;margin-bottom:10px}
+.safe-card-cta{font-size:15px;color:#C8963E;font-weight:bold}
+.review-safe{min-height:100vh;background:#F5F0E8;display:flex;align-items:center;justify-content:center}
