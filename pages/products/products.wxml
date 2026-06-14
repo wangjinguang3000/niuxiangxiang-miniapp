@@ -6,7 +6,7 @@
 
   <!-- 砍价横幅 -->
   <view class="banner-bar" bindtap="onBargain">
-    <text>砍价免费拿！邀请5位好友帮你砍价，最低砍到9.9元！点我发起</text>
+    <text>砍价免费拿！推荐5位好友帮你砍价，最低砍到9.9元！点我发起</text>
   </view>
 
   <!-- 搜索+分类 -->

@@ -10,13 +10,13 @@
     <view class="card" style="background:linear-gradient(135deg,#FFF9E6,#FFE8CC);text-align:center;padding:40rpx;" bindtap="onOnlineContest">
       <text style="font-size:60rpx;display:block;">🏆</text>
       <text style="font-size:32rpx;font-weight:800;color:#8B5E3C;display:block;margin-top:12rpx;">人宠互动预选赛</text>
-      <text style="font-size:24rpx;color:#999;display:block;margin-top:8rpx;">月度主题评选 | 上传视频参赛 | 投票赢大奖</text>
+      <text style="font-size:24rpx;color:#999;display:block;margin-top:8rpx;">月度主题评选 | 提交作品参赛 | 评选赢大奖</text>
       <view style="margin-top:20rpx;"><text class="btn btn-gold">立即参与</text></view>
     </view>
     <view class="card" style="background:linear-gradient(135deg,#1a1a2e,#0f3460);text-align:center;padding:40rpx;margin-top:16rpx;" bindtap="onFeed">
       <text style="font-size:60rpx;display:block;">🐕</text>
-      <text style="font-size:32rpx;font-weight:800;color:#FFD700;display:block;margin-top:12rpx;">遛狗狗广场</text>
-      <text style="font-size:24rpx;color:rgba(255,255,255,.6);display:block;margin-top:8rpx;">看视频赚金币 | 晒出你的毛孩子 | 互动交友</text>
+      <text style="font-size:32rpx;font-weight:800;color:#FFD700;display:block;margin-top:12rpx;">互动狗广场</text>
+      <text style="font-size:24rpx;color:rgba(255,255,255,.6);display:block;margin-top:8rpx;">看作品赚金币 | 晒出你的毛孩子 | 互动交友</text>
       <view style="margin-top:20rpx;"><text class="btn" style="background:#FFD700;color:#1a1a2e;padding:16rpx 40rpx;border-radius:30rpx;">去逛逛</text></view>
     </view>
   </view>

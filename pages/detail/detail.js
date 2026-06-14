@@ -10,6 +10,6 @@ Page({
     var p = products.find(function(p) { return p.id == opt.id; });
     if (p) this.setData({ product: p });
   },
-  onShare() { wx.showToast({ title: "分享功能开发中", icon: "none" }); },
-  onBuy() { wx.showToast({ title: "购买功能开发中", icon: "none" }); }
+  onShare() { wx.showShareMenu({ withShareTicket: true }); },
+  onBuy() { wx.switchTab({ url: "/pages/products/products" }); }
 });

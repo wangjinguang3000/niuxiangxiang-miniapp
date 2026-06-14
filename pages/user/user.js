@@ -86,11 +86,11 @@ Page({
   },
 
   onOrders() {
-    wx.showToast({ title: '订单功能开发中，敬请期待', icon: 'none' })
+    wx.navigateTo({ url: '/pages/detail/detail?id=1' })
   },
 
   onAddress() {
-    wx.showToast({ title: '收货地址管理开发中', icon: 'none' })
+    wx.showModal({ title: '收货地址', content: '请在下单时填写收货地址', showCancel: false })
   },
 
   onCommunity() { 

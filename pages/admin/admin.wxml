@@ -24,8 +24,8 @@
   <view class="toggle-card">
     <view class="toggle-row">
       <view class="toggle-info">
-        <text class="toggle-label">UGC社区功能</text>
-        <text class="toggle-desc">开启后社区/遛狗狗/上传跳转H5完整版</text>
+        <text class="toggle-label">互动板块功能</text>
+        <text class="toggle-desc">开启后互动板块跳转完整版</text>
       </view>
       <switch checked="{{ugcEnabled}}" bindchange="onToggleUGC" color="#8B5E3C"/>
     </view>

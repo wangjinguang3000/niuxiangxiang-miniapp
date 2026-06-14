@@ -44,7 +44,7 @@ module.exports = {
   partnerInfo: {
     models: [
       { name: '城市合伙人', investment: '5K-20K', desc: '独家区域代理，线上分销+线下宠物店渠道' },
-      { name: '线上分销', investment: '免费', desc: '生成专属链接/海报，分享成交赚佣金' },
+      { name: '线上分销', investment: '免费', desc: '生成专属链接/海报，推荐成交赚佣金' },
       { name: '达人合作', investment: '样品支持', desc: '宠物博主/KOL，提供样品+拍摄素材' }
     ],
     highlights: ['自有SC食品工厂', '人食标准做宠物零食', '0防腐剂0诱食剂', '配料表只有新鲜牛肝']
@@ -65,10 +65,10 @@ module.exports = {
   // 任务
   tasks: [
     { id: 1, name: '每日签到', reward: '+10金币', icon: '✓' },
-    { id: 2, name: '分享给好友', reward: '+20金币', icon: '↗' },
-    { id: 3, name: '分享到朋友圈', reward: '+30金币', icon: '📱' },
+    { id: 2, name: '推荐给好友', reward: '+20金币', icon: '↗' },
+    { id: 3, name: '推荐到朋友圈', reward: '+30金币', icon: '📱' },
     { id: 4, name: '下单任意商品', reward: '+50金币', icon: '🛒' },
-    { id: 5, name: '邀请好友注册', reward: '+100金币', icon: '👥' },
+    { id: 5, name: '推荐好友注册', reward: '+100金币', icon: '👥' },
     { id: 6, name: '晒单评价', reward: '+30金币', icon: '⭐' },
     { id: 7, name: '累计消费满100元', reward: '+200金币', icon: '💰' }
   ],
@@ -93,6 +93,6 @@ module.exports = {
     level1: '10%',
     level2: '12%',
     minWithdraw: 10,
-    desc: '邀请好友下单即可获得佣金，满10元即可提现'
+    desc: '推荐好友下单即可获得佣金，满10元即可提现'
   }
 }

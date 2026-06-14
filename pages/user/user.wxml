@@ -30,7 +30,7 @@
       </view>
       <view class="mc-stat">
         <text class="mc-val">{{userInfo.inviteCount}}人</text>
-        <text class="mc-label">已邀请</text>
+        <text class="mc-label">已推荐</text>
       </view>
     </view>
     <view class="coin-hint">💡 100金币=1元购物 | 300金币=1元现金 | 1元佣金=500金币</view>

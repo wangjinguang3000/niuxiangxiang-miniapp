@@ -4,16 +4,16 @@ const viral = require('../../utils/viral-engine')
 
 Page({
   data: {
-    marqueeText: '遛狗赚金币：看视频+1 发视频+20 签到领金币 | 邀请好友各得80~380金币 | 分享到群聊额外+30 | 人宠互动赛报名中',
+    marqueeText: '签到领金币：每日签到+10 连续签到翻倍 | 推荐好友各得80~380金币 | 人宠互动赛报名中',
     banners: [
       { emoji: '\u{1F3C6}', title: '草原人宠互动季S1', sub: '火热报名中！仅剩17组', bg: 'linear-gradient(135deg,#FF6B35,#F7931E)', link: '/pages/event/event' },
-      { emoji: '\u{1F415}', title: '遛狗狗赚金币', sub: '看视频发视频都能赚', bg: 'linear-gradient(135deg,#1a1a2e,#0f3460)', link: '/pages/feed/feed' },
-      { emoji: '\u{1F3C5}', title: '人宠互动预选赛', sub: '月度主题赛 投票赢大奖', bg: 'linear-gradient(135deg,#5C8A45,#3D6B2E)', link: '/pages/contest/contest' },
+      { emoji: '\u{1F415}', title: '互动赚金币', sub: '签到推荐都能赚', bg: 'linear-gradient(135deg,#1a1a2e,#0f3460)', link: '/pages/feed/feed' },
+      { emoji: '\u{1F3C5}', title: '人宠互动预选赛', sub: '月度主题赛 评选赢大奖', bg: 'linear-gradient(135deg,#5C8A45,#3D6B2E)', link: '/pages/contest/contest' },
       { emoji: '\u{1F969}', title: '牛肝干系列', sub: '高原散养 0添加 犬猫通用', bg: 'linear-gradient(135deg,#C8963E,#8B5E3C)', link: '/pages/products/products' }
     ],
     categories: [
       { emoji: '\u{1F3C6}', name: '赛事报名', path: '/pages/event/event' },
-      { emoji: '\u{1F415}', name: '遛狗狗', path: '/pages/feed/feed' },
+      { emoji: '\u{1F415}', name: '爱宠互动', path: '/pages/feed/feed' },
       { emoji: '\u{1F3C5}', name: '预选赛', path: '/pages/contest/contest' },
       { emoji: '\u{1F969}', name: '牛肝干系列', path: '/pages/products/products' }
     ],
@@ -21,12 +21,12 @@ Page({
   },
   onLoad(options) {
     this.loadProducts()
-    // 处理邀请参数
+    // 处理推荐参数
     viral.handleInvite(options)
   },
   onShow() { this.loadProducts() },
 
-  // ===== 分享裂变 =====
+  // ===== 推荐裂变 =====
   onShareAppMessage() {
     const userId = app.globalData.userInfo?._id || ''
     return viral.SHARE_TEMPLATES.invite(userId)
@@ -66,8 +66,8 @@ Page({
   onEvent() { wx.switchTab({ url: '/pages/event/event' }) },
   onDetail(e) { wx.navigateTo({ url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id }) },
   onPartner() { wx.navigateTo({ url: '/pages/partner/partner' }) },
-  onWheel() { wx.showToast({ title: '转盘抽奖开发中', icon: 'none' }) },
-  onBargain() { wx.showToast({ title: '砍价功能开发中', icon: 'none' }) },
-  onFlash() { wx.showToast({ title: '1元抢购开发中', icon: 'none' }) },
+  onWheel() { wx.switchTab({ url: '/pages/community/community' }); },
+  onBargain() { wx.switchTab({ url: '/pages/event/event' }); },
+  onFlash() { wx.switchTab({ url: '/pages/products/products' }); },
   onTask() { wx.navigateTo({ url: '/pages/community/community' }) }
 })

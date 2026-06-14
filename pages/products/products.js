@@ -31,5 +31,5 @@ Page({
     this.setData({ filteredProducts: list });
   },
   onDetail(e) { wx.navigateTo({ url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id }); },
-  onBargain() { wx.showToast({ title: '砍价功能开发中', icon: 'none' }); }
+  onBargain() { wx.navigateTo({ url: '/pages/event/event' }); }
 });

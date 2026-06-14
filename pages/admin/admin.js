@@ -55,8 +55,8 @@ Page({
     wx.showModal({
       title: enabled ? '确认开启UGC？' : '确认关闭UGC？',
       content: enabled 
-        ? '社区/遛狗狗/上传将切换到H5模式（完整功能）' 
-        : '社区/遛狗狗/上传将切换到原生模式（审核安全）',
+        ? '互动板块将切换到完整功能' 
+        : '互动板块将切换到审核安全模式',
       success: async (res) => {
         if (res.confirm) {
           try {
