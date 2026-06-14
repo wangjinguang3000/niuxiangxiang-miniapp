@@ -1,8 +1,32 @@
 <view class="page-upload">
-  <view class="safe-hero">
-    <text class="safe-emoji">🐾</text>
-    <text class="safe-title">功能即将开放</text>
-    <text class="safe-desc">更多精彩内容即将上线</text>
-    <text class="safe-desc">敬请期待</text>
+  <view class="up-hero">
+    <text class="up-emoji">🏆</text>
+    <text class="up-title">草原人宠互动季 S1</text>
+    <text class="up-desc">锡林郭勒·多伦草原·3天2晚</text>
   </view>
+  <view class="up-card">
+    <text class="up-card-title">参赛套餐</text>
+    <view class="up-pkg">
+      <text class="up-pkg-name">早鸟参赛</text>
+      <text class="up-pkg-price">1,780元</text>
+      <text class="up-pkg-desc">1人+1狗·3天2晚全包·冠军奖金8,000元</text>
+    </view>
+    <view class="up-pkg">
+      <text class="up-pkg-name">标准参赛</text>
+      <text class="up-pkg-price">1,980元</text>
+      <text class="up-pkg-desc">1人+1狗·3天2晚全包·赠品价值超539元</text>
+    </view>
+    <view class="up-pkg">
+      <text class="up-pkg-name">观摩票</text>
+      <text class="up-pkg-price">1,280元</text>
+      <text class="up-pkg-desc">不参赛·3天2晚住宿餐饮全包·欢迎带狗围观</text>
+    </view>
+  </view>
+  <view class="up-card">
+    <text class="up-card-title">行程安排</text>
+    <text class="up-schedule">Day1周五：多伦集合接驳·蒙古包入住·烤全羊欢迎晚宴</text>
+    <text class="up-schedule">Day2周六：意志力挑战·叼物接力·障碍赛·颁奖</text>
+    <text class="up-schedule">Day3周日：草原自由活动·代言狗评选·闭幕</text>
+  </view>
+  <button class="up-btn" bindtap="onGoEvent">立即报名参赛</button>
 </view>

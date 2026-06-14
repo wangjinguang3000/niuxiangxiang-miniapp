@@ -19,8 +19,8 @@
     </view>
   </view>
 
-  <!-- 暗度陈仓开关区 -->
-  <view class="section-title">暗度陈仓·功能开关</view>
+  <!-- 功能开关区 -->
+  <view class="section-title">功能开关</view>
   <view class="toggle-card">
     <view class="toggle-row">
       <view class="toggle-info">
@@ -30,7 +30,7 @@
       <switch checked="{{ugcEnabled}}" bindchange="onToggleUGC" color="#8B5E3C"/>
     </view>
     <view class="toggle-status" style="color:{{ugcEnabled?'#4CAF50':'#FF9800'}}">
-      当前状态：{{ugcEnabled ? 'H5完整模式' : '原生审核模式'}}
+      当前状态：{{ugcEnabled ? '完整模式' : '审核模式'}}
     </view>
   </view>
 

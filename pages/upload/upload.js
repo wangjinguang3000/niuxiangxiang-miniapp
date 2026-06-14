@@ -1,6 +1,7 @@
 const app = getApp()
 
 Page({
+  onGoEvent() { wx.switchTab({ url: '/pages/event/event' }); },
   data: { isReviewMode: true },
   onShow() { this.checkUGC(); },
   onLoad(options) {
