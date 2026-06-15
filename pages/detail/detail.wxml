@@ -19,7 +19,7 @@
       <text class="order-title">确认订单</text>
       <view class="order-product">
         <text>{{product.name}} x {{orderQuantity}}</text>
-        <text>{{(product.price * orderQuantity).toFixed(2)}}元</text>
+        <text>{{orderTotal}}元</text>
       </view>
       <view class="order-qty">
         <text class="qty-btn" bindtap="onQtyChange" data-type="minus">-</text>

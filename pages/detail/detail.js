@@ -4,7 +4,8 @@ Page({
     showOrder: false,
     orderName: '',
     orderPhone: '',
-    orderQuantity: 1
+    orderQuantity: 1,
+    orderTotal: '16.00'
   },
   onLoad(options) {
     const id = options.id || 1;
@@ -17,6 +18,7 @@ Page({
     this.setData({ product: products[id] || products[1] });
   },
   onShowOrder() {
+    this.computeTotal();
     this.setData({ showOrder: true });
   },
   onHideOrder() {
@@ -24,12 +26,13 @@ Page({
   },
   onNameInput(e) { this.setData({ orderName: e.detail.value }); },
   onPhoneInput(e) { this.setData({ orderPhone: e.detail.value }); },
+  computeTotal() { const p = parseFloat(this.data.product.price); const t = (p * this.data.orderQuantity).toFixed(2); this.setData({ orderTotal: t }); },
   onQtyChange(e) {
     const type = e.currentTarget.dataset.type;
     let qty = this.data.orderQuantity;
     if (type === 'plus') qty++;
     else if (type === 'minus' && qty > 1) qty--;
-    this.setData({ orderQuantity: qty });
+    this.setData({ orderQuantity: qty }); this.computeTotal();
   },
   async onSubmit() {
     const { orderName, orderPhone, orderQuantity, product } = this.data;
