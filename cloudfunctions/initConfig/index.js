@@ -13,8 +13,8 @@ exports.main = async (event, context) => {
       // 已存在，更新
       await db.collection('config').doc('app').update({
         data: {
-          ugc_enabled: false,
-          review_mode: true,
+          ugc_enabled: true,
+          review_mode: false,
           partner_enabled: true,
           h5_base: 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/',
           updatedAt: new Date()
