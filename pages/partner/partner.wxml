@@ -73,7 +73,7 @@
       <text class="form-title">申请城市合伙人</text>
       <input class="form-input" placeholder="您的姓名" value="{{formData.name}}" data-field="name" bindinput="onInput" />
       <input class="form-input" placeholder="手机号码" type="number" value="{{formData.phone}}" data-field="phone" bindinput="onInput" />
-      <input class="form-input" placeholder="推广渠道（微信/抖音/线下门店等）" value="{{formData.channel}}" data-field="channel" bindinput="onInput" />
+      <input class="form-input" placeholder="推广渠道（微信/抖音/线下渠道等）" value="{{formData.channel}}" data-field="channel" bindinput="onInput" />
       <view class="form-btns">
         <button class="form-cancel" bindtap="onCloseForm">取消</button>
         <button class="form-submit" bindtap="onSubmit">提交申请</button>

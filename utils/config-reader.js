@@ -22,6 +22,7 @@ async function loadConfig() {
       ugc_enabled: config.ugc_enabled === true,
       h5_base: config.h5_base || H5_BASE,
       partner_enabled: config.partner_enabled !== false,
+      store_enabled: config.store_enabled === true,
       review_mode: config.review_mode === true
     };
   } catch(e) {

@@ -1,3 +1,4 @@
+const storeGuard = require('../store-guard.js');
 const app = getApp();
 Page({
   data: { form: { name:'', phone:'', address:'', intro:'' }, submitting: false },

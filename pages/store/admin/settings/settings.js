@@ -1,7 +1,8 @@
+const storeGuard = require('../../store-guard.js');
 const app = getApp();
 Page({
   data: { store: { name:'',intro:'',phone:'',address:'',hours:'09:00-21:00',color:'#8B5E3C' }, storeId: '' },
-  onLoad() {
+  async onLoad() {
     const user = app.globalData.userInfo || wx.getStorageSync('user') || {};
     const sid = user.storeId || wx.getStorageSync('myStoreId');
     if (!sid) { wx.redirectTo({ url: '/pages/store/apply/apply' }); return; }

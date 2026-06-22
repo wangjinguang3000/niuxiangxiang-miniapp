@@ -1,6 +1,6 @@
 <view class="apply-page">
   <view class="apply-hero">
-    <text class="ah-title">门店入驻</text>
+    <text class="ah-title">门店加入</text>
     <text class="ah-desc">拥有你的专属小程序门店</text>
     <view class="ah-benefits">
       <text class="ahb-item">✓ AI主动推荐你的店</text>
@@ -14,5 +14,5 @@
   <view class="form-group"><text class="fg-label">联系电话 *</text><input class="fg-input" value="{{form.phone}}" bindinput="onInput" data-field="phone" type="number" placeholder="手机号"/></view>
   <view class="form-group"><text class="fg-label">门店地址</text><input class="fg-input" value="{{form.address}}" bindinput="onInput" data-field="address" placeholder="详细地址"/></view>
   <view class="form-group"><text class="fg-label">一句话简介</text><input class="fg-input" value="{{form.intro}}" bindinput="onInput" data-field="intro" placeholder="如：专注宠物健康10年"/></view>
-  <button class="submit-btn" bindtap="onSubmit" disabled="{{submitting}}">{{submitting?'提交中...':'立即入驻（免费）'}}</button>
+  <button class="submit-btn" bindtap="onSubmit" disabled="{{submitting}}">{{submitting?'提交中...':'立即加入（免费）'}}</button>
 </view>

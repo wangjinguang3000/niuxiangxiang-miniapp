@@ -1,3 +1,4 @@
+const storeGuard = require('../../store-guard.js');
 const app = getApp();
 
 Page({
@@ -8,7 +9,9 @@ Page({
     loading: true,
     isOwner: false
   },
-  onLoad(options) {
+  async onLoad(options) {
+    var ok = await storeGuard.checkStore();
+    if (!ok) return;
     const sid = options.sid || options.storeId || wx.getStorageSync('currentStore') || '';
     if (!sid) {
       // No store param - show store list

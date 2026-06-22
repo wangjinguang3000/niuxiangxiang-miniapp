@@ -1,7 +1,8 @@
+const storeGuard = require('../../store-guard.js');
 const app = getApp();
 Page({
   data: { orders: [], storeId: '' },
-  onLoad() {
+  async onLoad() {
     this.setData({ storeId: (app.globalData.userInfo||{}).storeId || wx.getStorageSync('myStoreId') });
     this.loadOrders();
   },

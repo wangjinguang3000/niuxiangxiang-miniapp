@@ -1,6 +1,7 @@
+const storeGuard = require('../store-guard.js');
 Page({
   data: { stores: [], loading: true },
-  onLoad() { this.loadStores(); },
+  async onLoad() { this.loadStores(); },
   async loadStores() {
     try {
       const res = await wx.cloud.database().collection('stores').where({status:'active'}).limit(20).get();

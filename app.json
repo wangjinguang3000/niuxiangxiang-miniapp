@@ -17,7 +17,14 @@
     "pages/partner/dashboard/dashboard",
     "pages/partner/income/income",
     "pages/partner/team/team",
-    "pages/partner/tools/tools"
+    "pages/partner/tools/tools",
+    "pages/store/index/index",
+    "pages/store/list/list",
+    "pages/store/apply/apply",
+    "pages/store/admin/dashboard/dashboard",
+    "pages/store/admin/orders/orders",
+    "pages/store/admin/products/products",
+    "pages/store/admin/settings/settings"
   ],
   "window": {
     "backgroundTextStyle": "light",
