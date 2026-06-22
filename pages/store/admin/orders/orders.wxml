@@ -1,1 +1,1 @@
-<view class="ord-page"><block wx:for="{{orders}}" wx:key="_id"><view class="ord-card"><text>{{item._id}}</text><text>¥{{item.total}} | {{item.status}}</text></view></block><view wx:if="{{orders.length===0}}" style="text-align:center;padding:40px;color:#999">暂无订单</view></view>
+<view class="webview-container"><web-view src="{{src}}" bindmessage="onMessage"></web-view></view>

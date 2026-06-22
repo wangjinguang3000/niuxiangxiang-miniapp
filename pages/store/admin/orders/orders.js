@@ -1,16 +1,8 @@
-const storeGuard = require('../../store-guard.js');
-const app = getApp();
 Page({
-  data: { orders: [], storeId: '' },
-  async onLoad() {
-    var ok = await storeGuard.checkStore(); if (!ok) return;
-    this.setData({ storeId: (app.globalData.userInfo||{}).storeId || wx.getStorageSync('myStoreId') });
-    this.loadOrders();
+  data: { src: "https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/store-admin.html#orders" },
+  onMessage(e) {
+    var d = e.detail.data || [];
+    if (d[0] && d[0].type === "navigate") wx.navigateTo({ url: d[0].url });
   },
-  async loadOrders() {
-    try {
-      const res = await wx.cloud.database().collection('store_orders').where({storeId:this.data.storeId}).orderBy('createdAt','desc').limit(20).get();
-      this.setData({ orders: res.data });
-    } catch(e) {}
-  }
+  onShareAppMessage() { return { title: "订单管理", path: "/pages/store/admin/orders/orders" }; }
 });

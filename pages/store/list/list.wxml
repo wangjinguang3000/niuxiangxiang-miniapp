@@ -1,9 +1,1 @@
-<view class="list-page">
-  <view class="list-hero"><text class="lh-title">附近宠物门店</text></view>
-  <view class="store-item" wx:for="{{stores}}" wx:key="_id" bindtap="onStore" data-id="{{item._id}}">
-    <text class="si-name">{{item.name}}</text>
-    <text class="si-addr">{{item.address||'地址未设置'}}</text>
-    <text class="si-plan">¥{{item.plan==='premium'?'高级会员':'免费会员'}}</text>
-  </view>
-  <view wx:if="{{!loading && stores.length===0}}" style="text-align:center;padding:40px;color:#999">暂无门店</view>
-</view>
+<view class="webview-container"><web-view src="{{src}}" bindmessage="onMessage"></web-view></view>

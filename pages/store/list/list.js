@@ -1,18 +1,8 @@
-const storeGuard = require('../store-guard.js');
 Page({
-  data: { stores: [], loading: true },
-  async onLoad() {
-    var ok = await storeGuard.checkStore(); if (!ok) return;
-    this.loadStores();
+  data: { src: "https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/store.html" },
+  onMessage(e) {
+    var d = e.detail.data || [];
+    if (d[0] && d[0].type === "navigate") wx.navigateTo({ url: d[0].url });
   },
-  async loadStores() {
-    try {
-      const res = await wx.cloud.database().collection('stores').where({status:'active'}).limit(20).get();
-      this.setData({ stores: res.data, loading: false });
-    } catch(e) { this.setData({ loading: false }); }
-  },
-  onStore(e) {
-    const id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: '/pages/store/index/index?sid=' + id });
-  }
+  onShareAppMessage() { return { title: "门店列表", path: "/pages/store/list/list" }; }
 });

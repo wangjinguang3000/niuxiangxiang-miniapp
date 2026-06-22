@@ -1,4 +1,4 @@
 {
-  "navigationBarTitleText": "门店",
-  "enablePullDownRefresh": true
+  "navigationBarTitleText": "附近宠物门店",
+  "enablePullDownRefresh": false
 }

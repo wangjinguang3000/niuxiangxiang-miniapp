@@ -1,1 +1,4 @@
-{"navigationBarTitleText":"门店入驻"}
+{
+  "navigationBarTitleText": "门店入驻",
+  "enablePullDownRefresh": false
+}

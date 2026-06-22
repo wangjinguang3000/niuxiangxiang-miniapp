@@ -1,0 +1,136 @@
+﻿const fs = require('fs');
+
+const adminHtml = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>门店管理后台</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#f5f5f5;color:#333;padding-bottom:70px}
+.header{background:linear-gradient(135deg,#5C8A45,#3D6B2E);color:#fff;padding:20px}
+.header h1{font-size:18px}
+.header p{font-size:12px;opacity:0.8;margin-top:3px}
+.stats{display:flex;gap:10px;padding:15px;background:#fff;margin-bottom:10px}
+.stat-card{flex:1;text-align:center;padding:12px;background:#F5F0E8;border-radius:10px}
+.stat-val{font-size:24px;font-weight:bold;color:#5C8A45}
+.stat-label{font-size:11px;color:#999}
+.tabs{display:flex;background:#fff;border-bottom:2px solid #eee;position:sticky;top:0;z-index:10}
+.tab{flex:1;text-align:center;padding:12px;font-size:13px;color:#999;border-bottom:2px solid transparent;cursor:pointer}
+.tab.active{color:#5C8A45;border-bottom-color:#5C8A45;font-weight:bold}
+.tab-content{display:none;padding:15px}
+.tab-content.active{display:block}
+.card{background:#fff;border-radius:10px;padding:15px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+.card-title{font-size:15px;font-weight:bold;margin-bottom:10px;color:#5C8A45}
+.order-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0f0f0}
+.order-item:last-child{border-bottom:none}
+.order-info{flex:1}
+.order-name{font-size:14px;font-weight:bold}
+.order-detail{font-size:12px;color:#999;margin-top:3px}
+.order-status{padding:3px 10px;border-radius:12px;font-size:11px}
+.status-pending{background:#FFF3E0;color:#F7931E}
+.status-done{background:#E8F5E9;color:#4CAF50}
+.status-cancel{background:#FFEBEE;color:#F44336}
+.product-item{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.product-img{width:50px;height:50px;border-radius:8px;background:#eee;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px}
+.product-info{flex:1}
+.product-name{font-size:14px;font-weight:bold}
+.product-price{font-size:16px;color:#F7931E;font-weight:bold}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:12px;color:#666;margin-bottom:4px}
+.form-group input,.form-group textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:13px}
+.form-group textarea{height:60px;resize:vertical}
+.btn{display:inline-block;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:bold;border:none;cursor:pointer}
+.btn-primary{background:#5C8A45;color:#fff}
+.btn-danger{background:#F44336;color:#fff}
+.btn-sm{padding:5px 12px;font-size:11px}
+.add-btn{width:100%;padding:12px;background:#5C8A45;color:#fff;border:none;border-radius:8px;font-size:14px;margin-top:5px}
+.empty-state{text-align:center;padding:40px;color:#ccc}
+.empty-emoji{font-size:48px;display:block;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🏪 门店管理后台</h1>
+  <p id="storeNameDisplay">我的宠物门店</p>
+</div>
+<div class="stats">
+  <div class="stat-card"><span class="stat-val" id="orderCount">0</span><span class="stat-label">今日订单</span></div>
+  <div class="stat-card"><span class="stat-val" id="revenue">¥0</span><span class="stat-label">本月收入</span></div>
+  <div class="stat-card"><span class="stat-val" id="customerCount">0</span><span class="stat-label">客户数</span></div>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('dashboard',this)">📊 概览</div>
+  <div class="tab" onclick="switchTab('orders',this)">📋 订单</div>
+  <div class="tab" onclick="switchTab('products',this)">📦 商品</div>
+  <div class="tab" onclick="switchTab('settings',this)">⚙️ 设置</div>
+</div>
+
+<div class="tab-content active" id="tab-dashboard">
+  <div class="card"><div class="card-title">💰 收入概览</div>
+    <p style="font-size:32px;font-weight:bold;color:#5C8A45">¥12,580</p>
+    <p style="font-size:12px;color:#999">本月累计 · 较上月 +23%</p>
+  </div>
+  <div class="card"><div class="card-title">📋 最近订单</div>
+    <div class="order-item"><div class="order-info"><span class="order-name">牛肝干80g x2</span><span class="order-detail">王先生 · 今天 14:30</span></div><span class="order-status status-pending">待处理</span></div>
+    <div class="order-item"><div class="order-info"><span class="order-name">牛肝干240g x1</span><span class="order-detail">李女士 · 昨天 09:15</span></div><span class="order-status status-done">已完成</span></div>
+    <button class="btn btn-primary btn-sm" onclick="switchTab('orders',document.querySelectorAll('.tab')[1])">查看全部</button>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-orders">
+  <div class="card"><div class="card-title">全部订单</div>
+    <div class="order-item"><div class="order-info"><span class="order-name">牛肝干80g x2</span><span class="order-detail">王先生 · 138****6789</span></div><span class="order-status status-pending">待处理</span></div>
+    <div class="order-item"><div class="order-info"><span class="order-name">牛肝干240g x1</span><span class="order-detail">李女士 · 139****8901</span></div><span class="order-status status-done">已完成</span></div>
+    <div class="order-item"><div class="order-info"><span class="order-name">牛肝干480g礼盒 x1</span><span class="order-detail">张先生 · 3天前</span></div><span class="order-status status-done">已完成</span></div>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-products">
+  <div class="card"><div class="card-title">我的商品</div>
+    <div class="product-item"><div class="product-img">🥩</div><div class="product-info"><span class="product-name">牛肝干80g</span></div><span class="product-price">¥16.00</span></div>
+    <div class="product-item"><div class="product-img">🎁</div><div class="product-info"><span class="product-name">牛肝干240g</span></div><span class="product-price">¥48.00</span></div>
+    <div class="product-item"><div class="product-img">📦</div><div class="product-info"><span class="product-name">牛肝干480g礼盒</span></div><span class="product-price">¥88.00</span></div>
+    <button class="add-btn" onclick="alert('商品管理功能开发中')">+ 添加商品</button>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-settings">
+  <div class="card"><div class="card-title">门店信息</div>
+    <div class="form-group"><label>门店名称</label><input type="text" value="我的宠物门店" placeholder="门店名称"></div>
+    <div class="form-group"><label>联系电话</label><input type="tel" value="" placeholder="联系电话"></div>
+    <div class="form-group"><label>门店地址</label><input type="text" value="" placeholder="门店地址"></div>
+    <div class="form-group"><label>门店简介</label><textarea placeholder="介绍一下你的门店"></textarea></div>
+    <button class="btn btn-primary" style="width:100%;padding:12px;font-size:14px" onclick="alert('保存成功！')">保存设置</button>
+  </div>
+  <div class="card" style="margin-top:15px">
+    <div class="card-title">⚠️ 危险操作</div>
+    <button class="btn btn-danger" style="width:100%;padding:10px" onclick="if(confirm('确定要注销门店吗？此操作不可撤销！')) alert('已提交注销申请')">注销门店</button>
+  </div>
+</div>
+
+<script>
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(c){ c.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+var params = new URLSearchParams(window.location.search);
+var storeId = params.get('storeId') || '';
+if (storeId) {
+  document.getElementById('storeNameDisplay').textContent = '门店 #' + storeId;
+}
+</script>
+</body>
+</html>`;
+
+fs.writeFileSync('store-admin.html', adminHtml, 'utf8');
+console.log('✅ store-admin.html created');
+console.log('');
+console.log('H5门店系统已创建:');
+console.log('  store.html - 门店列表/浏览');
+console.log('  store-apply.html - 入驻申请');
+console.log('  store-admin.html - 管理后台');

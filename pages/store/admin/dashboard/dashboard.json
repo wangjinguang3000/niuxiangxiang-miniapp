@@ -1,1 +1,4 @@
-{"navigationBarTitleText":"门店管理"}
+{
+  "navigationBarTitleText": "门店管理",
+  "enablePullDownRefresh": false
+}
