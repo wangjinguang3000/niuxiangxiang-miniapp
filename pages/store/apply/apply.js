@@ -1,6 +1,9 @@
 const storeGuard = require('../store-guard.js');
 const app = getApp();
 Page({
+  async onLoad() {
+    var ok = await storeGuard.checkStore(); if (!ok) return;
+  },
   data: { form: { name:'', phone:'', address:'', intro:'' }, submitting: false },
   onInput(e) { const f = e.currentTarget.dataset.field; this.setData({ ['form.'+f]: e.detail.value }); },
   async onSubmit() {

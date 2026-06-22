@@ -2,7 +2,8 @@ const storeGuard = require('../../store-guard.js');
 const app = getApp();
 Page({
   data: { store: null, stats: { productCount:0, orderCount:0, todayOrders:0, todayAmount:0 } },
-  async onLoad() {
+  async async onLoad() {
+    var ok = await storeGuard.checkStore(); if (!ok) return;
     const user = app.globalData.userInfo || wx.getStorageSync('user') || {};
     const storeId = user.storeId || wx.getStorageSync('myStoreId');
     if (!storeId) { wx.redirectTo({ url: '/pages/store/apply/apply' }); return; }
