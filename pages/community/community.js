@@ -24,10 +24,9 @@ Page({
     ]
   },
   onLoad(options) {
-    if (this.checkUGC()) return;
-    this.loadUserData();
+    this.checkUGC().then(function(skip) { if (!skip) this.loadUserData(); }.bind(this));
   },
-  onShow() { if (this.checkUGC()) return; this.loadUserData(); },
+  onShow() { this.checkUGC().then(function(skip) { if (!skip) this.loadUserData(); }.bind(this)); },
   loadUserData() {
     const user = app.globalData.userInfo || wx.getStorageSync('user') || {};
     const coins = app.globalData.coins || user.coins || 0;
@@ -71,24 +70,26 @@ Page({
     });
   },
   
-  checkUGC() {
-    // Try cached config first (fast path)
-    const cached = getApp().globalData.config || wx.getStorageSync('config') || {};
-    if (cached.ugc_enabled) {
-      wx.redirectTo({ url: '/pages/webview/webview?page=community' });
-      return true;
-    }
-    // Fallback: direct CloudBase read (slower but reliable)
-    this.checkUGCFromCloud();
-    return false;
-  },
-  async checkUGCFromCloud() {
+  async checkUGC() {
+    // 直接读CloudBase，不依赖缓存
     try {
       const config = await configReader.loadConfig();
       if (config.ugc_enabled) {
         wx.redirectTo({ url: '/pages/webview/webview?page=community' });
+        return true;
       }
-    } catch(e) {}
+    } catch(e) {
+      // 回退到缓存
+      const cached = getApp().globalData.config || {};
+      if (cached.ugc_enabled) {
+        wx.redirectTo({ url: '/pages/webview/webview?page=community' });
+        return true;
+      }
+    }
+    return false;
+  },
+  showCheckin() {
+    this.loadUserData();
   },
   onShareAppMessage() {
     return { title: '草原爱宠营 | 签到领金币兑好礼！', path: '/pages/index/index' };
