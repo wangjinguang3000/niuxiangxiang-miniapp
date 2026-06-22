@@ -1,7 +1,7 @@
 const storeGuard = require('../store-guard.js');
 Page({
   data: { stores: [], loading: true },
-  async async onLoad() {
+  async onLoad() {
     var ok = await storeGuard.checkStore(); if (!ok) return;
     this.loadStores();
   },
