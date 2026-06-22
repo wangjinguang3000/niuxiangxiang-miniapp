@@ -15,7 +15,8 @@ Page({
       { emoji: '\u{1F3C6}', name: '赛事报名', path: '/pages/event/event' },
       { emoji: '\u{1F415}', name: '爱宠互动', path: '/pages/feed/feed' },
       { emoji: '\u{1F3C5}', name: '预选赛', path: '/pages/contest/contest' },
-      { emoji: '\u{1F969}', name: '牛肝干系列', path: '/pages/products/products' }
+      { emoji: '\u{1F969}', name: '牛肝干系列', path: '/pages/products/products' },
+      { emoji: '\u{1F4DD}', name: '社区笔记', path: '/pages/community/community' }
     ],
     earlyLeft: 17, hotProducts: []
   },
@@ -66,8 +67,9 @@ Page({
   onEvent() { wx.switchTab({ url: '/pages/event/event' }) },
   onDetail(e) { wx.navigateTo({ url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id }) },
   onPartner() { wx.navigateTo({ url: '/pages/partner/partner' }) },
-  onWheel() { wx.switchTab({ url: '/pages/community/community' }); },
+  onWheel() { wx.navigateTo({ url: '/pages/community/community' }); },
   onBargain() { wx.switchTab({ url: '/pages/event/event' }); },
   onFlash() { wx.switchTab({ url: '/pages/products/products' }); },
-  onTask() { wx.navigateTo({ url: '/pages/community/community' }) }
+  onTask() { wx.navigateTo({ url: '/pages/community/community' }) },
+  onCommunity() { wx.navigateTo({ url: '/pages/community/community' }) }
 })
