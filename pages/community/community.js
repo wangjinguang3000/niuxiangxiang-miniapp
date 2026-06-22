@@ -1,4 +1,5 @@
 const api = require('../../utils/cloud-api')
+const configReader = require('../../utils/config-reader')
 const app = getApp()
 
 Page({
@@ -71,12 +72,23 @@ Page({
   },
   
   checkUGC() {
-    const config = getApp().globalData.config || wx.getStorageSync('config') || {};
-    if (config.ugc_enabled) {
+    // Try cached config first (fast path)
+    const cached = getApp().globalData.config || wx.getStorageSync('config') || {};
+    if (cached.ugc_enabled) {
       wx.redirectTo({ url: '/pages/webview/webview?page=community' });
       return true;
     }
+    // Fallback: direct CloudBase read (slower but reliable)
+    this.checkUGCFromCloud();
     return false;
+  },
+  async checkUGCFromCloud() {
+    try {
+      const config = await configReader.loadConfig();
+      if (config.ugc_enabled) {
+        wx.redirectTo({ url: '/pages/webview/webview?page=community' });
+      }
+    } catch(e) {}
   },
   onShareAppMessage() {
     return { title: '草原爱宠营 | 签到领金币兑好礼！', path: '/pages/index/index' };
