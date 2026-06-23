@@ -95,7 +95,8 @@ Page({
       }
     } catch(e) {}
     return false;
-  }  onShareAppMessage() {
+  },
+  onShareAppMessage() {
     return { title: '草原爱宠营 | 签到领金币兑好礼！', path: '/pages/index/index' };
   }
 })
