@@ -74,6 +74,11 @@
     </block>
   </view>
 
+    <view class="store-entry" bindtap="onStoreEntry" style="margin:15px;background:#fff;border-radius:12px;padding:15px;display:flex;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+    <text style="font-size:30px;margin-right:12px">🏪</text>
+    <view style="flex:1"><text style="font-size:15px;font-weight:bold;display:block">附近宠物门店</text><text style="font-size:12px;color:#999">美容 医疗 用品 寄养</text></view>
+    <text style="background:#5C8A45;color:#fff;padding:6px 14px;border-radius:15px;font-size:12px">去看看</text>
+  </view>
   <view class="partner-bar" bindtap="onPartner">
     <view class="partner-left">
       <text class="partner-title">🤝 城市合伙人招募</text>
