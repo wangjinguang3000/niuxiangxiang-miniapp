@@ -61,6 +61,8 @@ Page({
     wx.showToast({ title: '申请已提交！24小时内联系您', icon: 'success' })
   },
 
+  onStoreList() { wx.navigateTo({ url: "/pages/store/index/index" }); },
+  onStoreApply() { wx.navigateTo({ url: "/pages/store/apply/apply" }); },
   onShareAppMessage() {
     return {
       title: '草原爱宠营城市合伙人招募！0库存0风险，佣金高达15%',

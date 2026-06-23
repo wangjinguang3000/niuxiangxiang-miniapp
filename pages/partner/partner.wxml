@@ -3,7 +3,21 @@
     <text class="ph-title">城市合伙人招募</text>
     <text class="ph-sub">0库存 · 0风险 · 一件代发 · 佣金高达15%</text>
     <text class="ph-desc">锡林郭勒自有工厂直供 | 草原赛事IP赋能</text>
+  
+  <view class="section-title" style="margin-top:20px">🏪 宠物门店</view>
+  <view class="store-entry" style="background:#fff;margin:15px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+    <view class="store-card" bindtap="onStoreList" style="display:flex;align-items:center;padding:15px;border-bottom:1px solid #f0f0f0">
+      <text style="font-size:28px;margin-right:12px">🔍</text>
+      <view style="flex:1"><text style="font-size:15px;font-weight:bold;display:block">浏览附近门店</text><text style="font-size:12px;color:#999">发现身边的宠物服务</text></view>
+      <text style="color:#5C8A45;font-size:12px">去看看 ></text>
+    </view>
+    <view class="store-card" bindtap="onStoreApply" style="display:flex;align-items:center;padding:15px">
+      <text style="font-size:28px;margin-right:12px">📝</text>
+      <view style="flex:1"><text style="font-size:15px;font-weight:bold;display:block">门店入驻</text><text style="font-size:12px;color:#999">999元/年·千店千面·AI推荐</text></view>
+      <text style="color:#F7931E;font-size:12px">立即入驻 ></text>
+    </view>
   </view>
+</view>
 
   <!-- 三级合伙人 -->
   <view class="card">

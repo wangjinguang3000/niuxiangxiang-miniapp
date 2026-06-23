@@ -28,6 +28,7 @@ Page({
   onShow() { this.loadProducts() },
 
   // ===== 推荐裂变 =====
+  onStoreEntry() { wx.navigateTo({ url: "/pages/store/index/index" }); },
   onShareAppMessage() {
     const userId = app.globalData.userInfo?._id || ''
     return viral.SHARE_TEMPLATES.invite(userId)
