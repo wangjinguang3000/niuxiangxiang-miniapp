@@ -71,31 +71,29 @@ Page({
   },
   
   async checkUGC() {
-    // 第1优先：本地存储（秒开，离线也能用）
-    var storageKey = 'nx_ugc_enabled';
-    var local = wx.getStorageSync(storageKey);
-    if (local === true) {
-      wx.redirectTo({ url: '/pages/webview/webview?page=community' });
-      return true;
-    }
-    // 第2优先：CloudBase实时查，成功后写入本地存储
+    // 第1优先：HTTP静态文件（100%可靠，无需数据库权限）
+    try {
+      var res = await new Promise(function(resolve, reject) {
+        wx.request({
+          url: 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/ugc_status.json?_t=' + Date.now(),
+          success: resolve,
+          fail: reject,
+          timeout: 3000
+        });
+      });
+      if (res.statusCode === 200 && res.data && res.data.enabled === true) {
+        wx.redirectTo({ url: '/pages/webview/webview?page=community' });
+        return true;
+      }
+    } catch(e) {}
+    // 第2优先：CloudBase数据库
     try {
       var config = await configReader.loadConfig();
       if (config.ugc_enabled) {
-        wx.setStorageSync(storageKey, true);
-        wx.redirectTo({ url: '/pages/webview/webview?page=community' });
-        return true;
-      } else {
-        wx.setStorageSync(storageKey, false);
-      }
-    } catch(e) {
-      // CloudBase挂了的最后兜底
-      var cached = getApp().globalData.config || {};
-      if (cached.ugc_enabled) {
         wx.redirectTo({ url: '/pages/webview/webview?page=community' });
         return true;
       }
-    }
+    } catch(e) {}
     return false;
   },
   onShareAppMessage() {
