@@ -71,32 +71,31 @@ Page({
   },
   
   async checkUGC() {
-    // 第1优先：HTTP静态文件（100%可靠，无需数据库权限）
+    // Cloud function primary (no domain whitelist needed, admin privileges)
     try {
-      var res = await new Promise(function(resolve, reject) {
-        wx.request({
-          url: 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/ugc_status.json?_t=' + Date.now(),
-          success: resolve,
-          fail: reject,
-          timeout: 3000
-        });
-      });
-      if (res.statusCode === 200 && res.data && res.data.enabled === true) {
-        wx.redirectTo({ url: '/pages/webview/webview?page=community' });
-        return true;
+      var cfResult = await wx.cloud.callFunction({ name: 'getConfig', data: {} });
+      if (cfResult.result && cfResult.result.success && cfResult.result.data) {
+        if (cfResult.result.data.ugc_enabled === true) {
+          wx.redirectTo({ url: '/pages/webview/webview?page=community' });
+          return true;
+        }
       }
     } catch(e) {}
-    // 第2优先：CloudBase数据库
+    // HTTP static file backup
     try {
-      var config = await configReader.loadConfig();
-      if (config.ugc_enabled) {
+      var httpResult = await new Promise(function(resolve, reject) {
+        wx.request({
+          url: 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/ugc_status.json?_t=' + Date.now(),
+          success: resolve, fail: reject, timeout: 3000
+        });
+      });
+      if (httpResult.statusCode === 200 && httpResult.data && httpResult.data.enabled === true) {
         wx.redirectTo({ url: '/pages/webview/webview?page=community' });
         return true;
       }
     } catch(e) {}
     return false;
-  },
-  onShareAppMessage() {
+  }  onShareAppMessage() {
     return { title: '草原爱宠营 | 签到领金币兑好礼！', path: '/pages/index/index' };
   }
 })
