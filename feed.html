@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>草原爱宠营 - 遛狗狗</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#1a1a2e;color:#fff;height:100vh;overflow:hidden}
+.feed-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory}
+.video-item{height:100vh;scroll-snap-align:start;position:relative;display:flex;align-items:center;justify-content:center}
+.video-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:40px}
+.placeholder-emoji{font-size:80px;margin-bottom:20px}
+.placeholder-title{font-size:18px;font-weight:bold;margin-bottom:10px}
+.placeholder-author{font-size:14px;color:#aaa}
+.side-actions{position:absolute;right:15px;bottom:120px;display:flex;flex-direction:column;gap:20px;align-items:center}
+.side-item{display:flex;flex-direction:column;align-items:center;cursor:pointer}
+.side-icon{font-size:28px}
+.side-count{font-size:12px;margin-top:3px}
+.side-coin{font-size:10px;color:#FFD700;margin-top:2px}
+.video-info{position:absolute;left:15px;bottom:100px;right:70px}
+.video-author{font-size:15px;font-weight:bold;margin-bottom:5px}
+.video-desc{font-size:13px;opacity:0.9;line-height:1.5}
+.video-tags{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.video-tag{background:rgba(255,255,255,0.2);border-radius:10px;padding:2px 8px;font-size:11px}
+.nav-tabs{position:fixed;bottom:0;left:0;right:0;display:flex;background:rgba(0,0,0,0.9);border-top:1px solid #333;z-index:99;padding:5px 0;padding-bottom:env(safe-area-inset-bottom)}
+.nav-tab{flex:1;text-align:center;padding:8px;font-size:11px;color:#999;text-decoration:none;background:none;border:none;cursor:pointer}
+.nav-tab.active{color:#FFD700}
+.nav-tab .icon{font-size:22px;display:block}
+.back-btn{position:fixed;top:20px;left:15px;z-index:10;background:rgba(0,0,0,0.5);color:#fff;border:none;border-radius:20px;padding:6px 14px;font-size:14px;cursor:pointer}
+</style>
+</head>
+<body>
+<button class="back-btn" onclick="history.back()">← 返回</button>
+<div class="feed-container" id="feedContainer"></div>
+<div class="nav-tabs">
+  <a class="nav-tab" href="community.html"><span class="icon">🏠</span>社区</a>
+  <a class="nav-tab active" href="feed.html"><span class="icon">🎬</span>遛狗狗</a>
+  <a class="nav-tab" href="upload.html"><span class="icon">📤</span>发布</a>
+</div>
+<script>
+var mockVideos = [
+  { id:1, title:'我家金毛第一次去草原撒欢！', author:{name:'草原爱犬者',avatar:'草'}, tags:['金毛','草原'], likes:89, comments:12, bgColors:['#1a1a2e','#0f3460'] },
+  { id:2, title:'哈士奇接飞盘挑战，笑死我了', author:{name:'二哈的日常',avatar:'哈'}, tags:['哈士奇','飞盘','搞笑'], likes:167, comments:28, bgColors:['#2d1b2e','#4a1942'] },
+  { id:3, title:'和边牧比智商我输了', author:{name:'边牧主人',avatar:'边'}, tags:['边牧','智商'], likes:56, comments:8, bgColors:['#1a2e1a','#2e4a2e'] },
+  { id:4, title:'柯基的小短腿跑起来太可爱了', author:{name:'柯基家',avatar:'柯'}, tags:['柯基','可爱','搞笑'], likes:234, comments:45, bgColors:['#2e1a1a','#4a2e2e'] },
+  { id:5, title:'泰迪学会了新技能！转圈圈', author:{name:'泰迪达人',avatar:'泰'}, tags:['泰迪','训练'], likes:145, comments:18, bgColors:['#1a1a3e','#2e2e5a'] }
+];
+
+var currentIndex = 0;
+var html = '';
+mockVideos.forEach(function(v, i) {
+  var bg = 'linear-gradient(135deg,' + v.bgColors[0] + ',' + v.bgColors[1] + ')';
+  html += '<div class="video-item" style="background:' + bg + '">';
+  html += '<div class="video-placeholder"><div class="placeholder-emoji">' + (v.tags[0]==='金毛'?'🐕':v.tags[0]==='哈士奇'?'🐺':v.tags[0]==='边牧'?'🐑':v.tags[0]==='柯基'?'🐶':v.tags[0]==='泰迪'?'🐩':'🐶') + '</div>';
+  html += '<div class="placeholder-title">' + v.title + '</div>';
+  html += '<div class="placeholder-author">@' + v.author.name + '</div></div>';
+  html += '<div class="side-actions"><div class="side-item" onclick="like(' + i + ')"><span class="side-icon">🤍</span><span class="side-count">' + v.likes + '</span><span class="side-coin">+1🪙</span></div>';
+  html += '<div class="side-item"><span class="side-icon">💬</span><span class="side-count">' + v.comments + '</span></div>';
+  html += '<div class="side-item"><span class="side-icon">↗️</span><span class="side-count">分享</span></div></div>';
+  html += '<div class="video-info"><div class="video-author">@' + v.author.name + '</div><div class="video-desc">' + v.title + '</div>';
+  html += '<div class="video-tags">';
+  v.tags.forEach(function(t) { html += '<span class="video-tag">#' + t + '</span>'; });
+  html += '</div></div></div>';
+});
+document.getElementById('feedContainer').innerHTML = html;
+
+function like(idx) {
+  alert('点赞成功！+1金币');
+}
+</script>
+</body>
+</html>

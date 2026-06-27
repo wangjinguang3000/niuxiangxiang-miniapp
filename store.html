@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>附近宠物门店</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F0E8;color:#333}
+.header{background:linear-gradient(135deg,#5C8A45,#3D6B2E);color:#fff;padding:20px;text-align:center}
+.header h1{font-size:20px;margin-bottom:5px}
+.header p{font-size:13px;opacity:0.85}
+.search-bar{padding:12px 15px;background:#fff;display:flex;gap:10px}
+.search-bar input{flex:1;padding:10px 15px;border:1px solid #ddd;border-radius:20px;font-size:14px;outline:none}
+.search-bar button{background:#5C8A45;color:#fff;border:none;border-radius:20px;padding:10px 20px;font-size:14px}
+.filter-bar{display:flex;gap:8px;padding:0 15px 10px;overflow-x:auto}
+.filter-tag{padding:6px 14px;border-radius:15px;font-size:12px;white-space:nowrap;background:#fff;border:1px solid #ddd}
+.filter-tag.active{background:#5C8A45;color:#fff;border-color:#5C8A45}
+.store-list{padding:0 15px}
+.store-card{background:#fff;border-radius:12px;padding:15px;margin-bottom:12px;display:flex;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.store-avatar{width:60px;height:60px;border-radius:12px;background:#eee;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:30px}
+.store-info{flex:1}
+.store-name{font-size:16px;font-weight:bold;margin-bottom:4px}
+.store-desc{font-size:12px;color:#999;margin-bottom:6px}
+.store-tags{display:flex;gap:5px;flex-wrap:wrap}
+.store-tag{background:#F5F0E8;color:#8B5E3C;padding:2px 8px;border-radius:10px;font-size:11px}
+.store-footer{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.store-rating{color:#F7931E;font-size:13px}
+.store-btn{background:linear-gradient(135deg,#5C8A45,#3D6B2E);color:#fff;border:none;border-radius:15px;padding:6px 15px;font-size:12px}
+.empty{text-align:center;padding:40px;color:#999}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:12px 15px;box-shadow:0 -2px 12px rgba(0,0,0,0.08);display:flex;gap:10px}
+.bottom-bar button{flex:1;padding:12px;border-radius:25px;font-size:15px;font-weight:bold;border:none}
+.btn-primary{background:linear-gradient(135deg,#8B5E3C,#C8963E);color:#fff}
+.btn-outline{background:#fff;border:2px solid #8B5E3C;color:#8B5E3C}
+.loading{text-align:center;padding:60px;color:#999}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🐾 附近宠物门店</h1>
+  <p>发现身边的宠物服务</p>
+</div>
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="搜索门店名称...">
+  <button onclick="searchStores()">搜索</button>
+</div>
+<div class="filter-bar" id="filterBar">
+  <div class="filter-tag active" onclick="filterStores('all',this)">全部</div>
+  <div class="filter-tag" onclick="filterStores('grooming',this)">美容</div>
+  <div class="filter-tag" onclick="filterStores('vet',this)">医疗</div>
+  <div class="filter-tag" onclick="filterStores('shop',this)">用品</div>
+  <div class="filter-tag" onclick="filterStores('boarding',this)">寄养</div>
+</div>
+<div class="store-list" id="storeList"><div class="loading">加载中...</div></div>
+<div class="bottom-bar">
+  <button class="btn-outline" onclick="location.href='store-apply.html'">申请入驻</button>
+  <button class="btn-primary" onclick="openAdmin()">门店管理</button>
+</div>
+<script>
+var allStores = [];
+var currentFilter = 'all';
+
+function loadStores() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/store-data.json', true);
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      try { allStores = JSON.parse(xhr.responseText); } catch(e) { allStores = getSampleStores(); }
+    } else { allStores = getSampleStores(); }
+    renderStores(allStores);
+  };
+  xhr.onerror = function() { allStores = getSampleStores(); renderStores(allStores); };
+  xhr.send();
+}
+
+function getSampleStores() {
+  return [
+    {id:1,name:'爱宠屋宠物生活馆',type:'grooming',desc:'专业宠物美容·SPA·寄养',rating:4.8,tags:['美容','SPA','寄养'],avatar:'🐶'},
+    {id:2,name:'康康宠物医院',type:'vet',desc:'24小时急诊·疫苗·体检',rating:4.6,tags:['医疗','疫苗','急诊'],avatar:'🏥'},
+    {id:3,name:'汪星人用品店',type:'shop',desc:'进口粮·零食·玩具',rating:4.5,tags:['进口粮','零食'],avatar:'🦴'},
+    {id:4,name:'猫咪森林',type:'grooming',desc:'猫咪专属美容护理',rating:4.9,tags:['猫咪','美容'],avatar:'🐱'},
+    {id:5,name:'宠物乐园寄养中心',type:'boarding',desc:'超大活动空间·监控可看',rating:4.7,tags:['寄养','监控','大空间'],avatar:'🏠'},
+    {id:6,name:'毛孩子之家',type:'shop',desc:'宠物用品一站式购物',rating:4.4,tags:['用品','食品'],avatar:'🎾'},
+    {id:7,name:'宠爱有家美容馆',type:'grooming',desc:'韩国宠物美容技术',rating:4.8,tags:['美容','造型'],avatar:'✂️'},
+    {id:8,name:'瑞康动物诊所',type:'vet',desc:'专业宠物诊疗·手术',rating:4.5,tags:['诊疗','手术'],avatar:'💊'}
+  ];
+}
+
+function renderStores(stores) {
+  var html = '';
+  if (stores.length === 0) { html = '<div class="empty">暂无匹配门店</div>'; }
+  stores.forEach(function(s) {
+    html += '<div class="store-card" onclick="viewStore('+s.id+')">';
+    html += '<div class="store-avatar">'+s.avatar+'</div>';
+    html += '<div class="store-info">';
+    html += '<div class="store-name">'+s.name+'</div>';
+    html += '<div class="store-desc">'+s.desc+'</div>';
+    html += '<div class="store-tags">'+s.tags.map(function(t){return '<span class="store-tag">'+t+'</span>'}).join('')+'</div>';
+    html += '<div class="store-footer"><span class="store-rating">⭐ '+s.rating+'</span><button class="store-btn">查看详情</button></div>';
+    html += '</div></div>';
+  });
+  document.getElementById('storeList').innerHTML = html;
+}
+
+function searchStores() {
+  var q = document.getElementById('searchInput').value.toLowerCase();
+  var filtered = allStores.filter(function(s){ return s.name.toLowerCase().indexOf(q) >= 0; });
+  if (currentFilter !== 'all') filtered = filtered.filter(function(s){ return s.type === currentFilter; });
+  renderStores(filtered);
+}
+
+function filterStores(type, el) {
+  currentFilter = type;
+  document.querySelectorAll('.filter-tag').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+  searchStores();
+}
+
+function viewStore(id) {
+  var s = allStores.find(function(x){ return x.id === id; });
+  if (s) alert(s.name + '\n\n' + s.desc + '\n评分: ' + s.rating + '\n\n详情功能开发中...');
+}
+
+function openAdmin() {
+  location.href = 'store-admin.html';
+}
+
+loadStores();
+</script>
+</body>
+</html>
