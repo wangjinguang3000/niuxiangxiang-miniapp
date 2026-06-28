@@ -1,1 +1,19 @@
-<view class="webview-container"><web-view src="{{src}}" bindmessage="onMessage"></web-view></view>
+<view class="page-store">
+  <view wx:if="{{!storeEnabled}}" class="empty-tip">门店功能暂未开放</view>
+  <view wx:else>
+    <view class="store-hero" style="background:linear-gradient(135deg,#8B5E3C,#C8A27A);padding:30rpx;border-radius:16rpx;margin:20rpx;color:#fff">
+      <text style="font-size:36rpx;font-weight:bold;display:block">附近宠物门店</text>
+      <text style="font-size:26rpx;opacity:0.8;display:block;margin-top:8rpx">美容 · 医疗 · 用品 · 寄养</text>
+      <button bindtap="goApply" style="margin-top:20rpx;background:#fff;color:#8B5E3C;font-size:26rpx">申请入驻</button>
+    </view>
+    <view wx:if="{{loading}}" class="loading-tip">加载中...</view>
+    <block wx:for="{{stores}}" wx:key="_id">
+      <view class="store-card" bindtap="goDetail" data-id="{{item._id}}" style="margin:15rpx 20rpx;background:#fff;border-radius:12rpx;padding:20rpx;box-shadow:0 2rpx 8rpx rgba(0,0,0,0.06)">
+        <text style="font-size:30rpx;font-weight:bold;display:block">{{item.name}}</text>
+        <text style="font-size:24rpx;color:#999;display:block;margin-top:8rpx">{{item.address}}</text>
+        <text style="font-size:24rpx;color:#8B5E3C;display:block;margin-top:4rpx">{{item.phone}} · {{item.type}}</text>
+      </view>
+    </block>
+    <view wx:if="{{!loading && stores.length===0}}" class="empty-tip">暂无入驻门店</view>
+  </view>
+</view>

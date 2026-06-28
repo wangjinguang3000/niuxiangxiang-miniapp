@@ -1,1 +1,10 @@
-<view class="webview-container"><web-view src="{{src}}" bindmessage="onMessage"></web-view></view>
+<view style="padding:20rpx">
+  <view style="font-size:32rpx;font-weight:bold;margin:20rpx 0">门店入驻申请</view>
+  <input placeholder="门店名称" bindinput="onNameInput" style="border:1rpx solid #ddd;border-radius:8rpx;padding:16rpx;margin:12rpx 0;font-size:28rpx;width:100%"/>
+  <input placeholder="联系电话" bindinput="onPhoneInput" style="border:1rpx solid #ddd;border-radius:8rpx;padding:16rpx;margin:12rpx 0;font-size:28rpx;width:100%"/>
+  <input placeholder="详细地址" bindinput="onAddrInput" style="border:1rpx solid #ddd;border-radius:8rpx;padding:16rpx;margin:12rpx 0;font-size:28rpx;width:100%"/>
+  <picker mode="selector" range="{{['综合','医疗','美容','用品','寄养']}}" bindchange="onTypePick">
+    <view style="border:1rpx solid #ddd;border-radius:8rpx;padding:16rpx;margin:12rpx 0;font-size:28rpx">{{type}}</view>
+  </picker>
+  <button bindtap="onSubmit" style="background:#8B5E3C;color:#fff;margin-top:30rpx;border-radius:8rpx">提交申请</button>
+</view>

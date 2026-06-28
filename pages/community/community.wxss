@@ -77,3 +77,18 @@
 .poster-reward{font-size:12px;opacity:.8}
 .poster-tip{color:#fff;font-size:11px;opacity:.8;margin-top:14px;display:block}
 .btn-close{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);padding:8px 30px;border-radius:20px;font-size:13px;margin-top:12px}
+/* 社区动态 */
+.post-input-box{display:flex;flex-direction:column;gap:8rpx;margin-bottom:20rpx}
+.post-input-box textarea{border:1rpx solid #ddd;border-radius:10rpx;padding:12rpx;font-size:28rpx;height:120rpx}
+.btn-post{align-self:flex-end;background:#8B5E3C;color:#fff;font-size:24rpx;padding:10rpx 24rpx;border-radius:20rpx}
+.post-item{border-top:1rpx solid #f0f0f0;padding:16rpx 0}
+.post-header{display:flex;justify-content:space-between;margin-bottom:8rpx}
+.post-author{font-weight:bold;color:#333;font-size:28rpx}
+.post-time{font-size:22rpx;color:#999}
+.post-text{font-size:28rpx;color:#444;line-height:1.6}
+.post-actions{display:flex;margin-top:12rpx}
+.post-action{display:flex;align-items:center;gap:6rpx}
+.action-icon{font-size:32rpx}
+.action-num{font-size:24rpx;color:#999}
+.loading-tip{text-align:center;color:#999;padding:20rpx}
+.empty-tip{text-align:center;color:#ccc;padding:40rpx;font-size:28rpx}

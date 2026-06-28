@@ -1,102 +1,64 @@
 const api = require('../../utils/cloud-api')
-const configReader = require('../../utils/config-reader')
-const app = getApp()
-
+var app = getApp()
 Page({
-  data: {
-    isReviewMode: true,
-    checkedToday: false, coins: 0, userTier: '普通',
-    checkinDays: [
-      { done: false, today: true, reward: 5 },
-      { done: false, today: false, reward: 8 },
-      { done: false, today: false, reward: 12 },
-      { done: false, today: false, reward: 18 },
-      { done: false, today: false, reward: 25 },
-      { done: false, today: false, reward: 35 },
-      { done: false, today: false, reward: 50 }
-    ],
-    exchanges: [
-      { emoji: '🎫', name: '3元购物抵用券', desc: '100金币兑换 | 全场通用', cost: 100 },
-      { emoji: '🎁', name: '牛肝干80g体验装', desc: '150金币兑换 | 包邮到家', cost: 150 },
-      { emoji: '🏆', name: '赛事报名30元抵扣', desc: '300金币兑换 | 早鸟可用', cost: 300 },
-      { emoji: '📦', name: '牛肝干240g正装', desc: '480金币免费兑换 | 包邮', cost: 480 },
-      { emoji: '🎟', name: '赛事观摩票1张', desc: '600金币兑换 | 价值1280', cost: 600 }
-    ]
+  data: {ugcEnabled:false,checkedToday:false,coins:0,userTier:'',posts:[],postText:'',postImages:[],uploading:false,loading:false,
+    commentText:'',commentPostId:'',
+    checkinDays:[{done:false,today:true,reward:5},{done:false,today:false,reward:8},{done:false,today:false,reward:12},{done:false,today:false,reward:18},{done:false,today:false,reward:25},{done:false,today:false,reward:35},{done:false,today:false,reward:50}],
+    exchanges:[{emoji:'*',name:'test',desc:'desc',cost:100}]
   },
-  onLoad(options) {
-    this.checkUGC().then(function(skip) { if (!skip) this.loadUserData(); }.bind(this));
-  },
-  onShow() { this.checkUGC().then(function(skip) { if (!skip) this.loadUserData(); }.bind(this)); },
-  loadUserData() {
-    const user = app.globalData.userInfo || wx.getStorageSync('user') || {};
-    const coins = app.globalData.coins || user.coins || 0;
-    this.setData({ coins });
-    this.updateTier(coins);
-  },
-  updateTier(coins) {
-    const idx = coins >= 5000 ? 3 : coins >= 2000 ? 2 : coins >= 500 ? 1 : 0;
-    const names = ['普通会员','银卡会员','金卡会员','钻石会员'];
-    this.setData({ userTier: names[idx] });
-  },
-  async onCheckin() {
-    if (this.data.checkedToday) return;
-    try {
-      const res = await api.checkin();
-      if (res.error) { wx.showToast({ title: res.error, icon: 'none' }); return; }
-      const days = this.data.checkinDays.map((d,i) => ({...d, done: i < res.streak, today: i === res.streak - 1}));
-      this.setData({ checkinDays: days, checkedToday: true, coins: this.data.coins + res.reward });
-      wx.showToast({ title: '连续' + res.streak + '天！+' + res.reward + '金币', icon: 'success' });
-    } catch(e) {
-      this.setData({ checkedToday: true, coins: this.data.coins + 10 });
-      wx.showToast({ title: '签到成功！+10金币', icon: 'success' });
-    }
-  },
-  async onExchange(e) {
-    const idx = e.currentTarget.dataset.id;
-    const ex = this.data.exchanges[idx];
-    if (this.data.coins < ex.cost) {
-      wx.showToast({ title: '金币不足！', icon: 'none' }); return;
-    }
-    wx.showModal({
-      title: '确认兑换',
-      content: '花费' + ex.cost + '金币兑换 ' + ex.name + ' ？',
-      success: async (res) => {
-        if (res.confirm) {
-          try { await api.exchangeItem(idx); } catch(e) {}
-          this.setData({ coins: this.data.coins - ex.cost });
-          wx.showToast({ title: '兑换成功！', icon: 'success' });
-        }
+  onLoad(){this.checkConfig();this.loadUserData()},
+  onShow(){this.checkConfig()},
+  checkConfig(){var t=this;wx.cloud.callFunction({name:'getConfig',data:{}}).then(function(r){if(r.result&&r.result.success&&r.result.data&&r.result.data.ugc_enabled===true){t.setData({ugcEnabled:true});t.loadPosts()}else{t.setData({ugcEnabled:false})}}).catch(function(){})},
+  loadUserData(){var u=app.globalData.userInfo||{};var c=app.globalData.coins||0;var n=['A','B','C','D'];this.setData({coins:c,userTier:n[c>=5000?3:c>=2000?2:c>=500?1:0]})},
+  loadPosts(){var t=this;t.setData({loading:true});wx.cloud.callFunction({name:'getPosts',data:{page:1}}).then(function(r){if(r.result&&r.result.success){t.setData({posts:r.result.data||[],loading:false})}else{t.setData({loading:false})}}).catch(function(){t.setData({loading:false})})},
+  onTextInput(e){this.setData({postText:e.detail.value})},
+  onChooseImage(){
+    var t=this;if(t.data.uploading)return
+    wx.chooseImage({count:9,sizeType:['compressed'],sourceType:['album','camera'],success:function(res){
+      t.setData({uploading:true})
+      var files=res.tempFilePaths;var urls=[];var done=0
+      for(var i=0;i<files.length;i++){
+        (function(idx){
+          var name='post_img_'+Date.now()+'_'+idx+'.jpg'
+          wx.cloud.uploadFile({cloudPath:name,filePath:files[idx],success:function(r2){urls.push(r2.fileID);done++;if(done===files.length){t.setData({postImages:t.data.postImages.concat(urls),uploading:false})}}})
+        })(i)
       }
-    });
+    }})
   },
-  
-  async checkUGC() {
-    // Cloud function primary (no domain whitelist needed, admin privileges)
-    try {
-      var cfResult = await wx.cloud.callFunction({ name: 'getConfig', data: {} });
-      if (cfResult.result && cfResult.result.success && cfResult.result.data) {
-        if (cfResult.result.data.ugc_enabled === true) {
-          wx.redirectTo({ url: '/pages/webview/webview?page=community' });
-          return true;
-        }
-      }
-    } catch(e) {}
-    // HTTP static file backup
-    try {
-      var httpResult = await new Promise(function(resolve, reject) {
-        wx.request({
-          url: 'https://cloudbase-4gvjj5qn247cd61a-1394227853.tcloudbaseapp.com/h5/ugc_status.json?_t=' + Date.now(),
-          success: resolve, fail: reject, timeout: 3000
-        });
-      });
-      if (httpResult.statusCode === 200 && httpResult.data && httpResult.data.enabled === true) {
-        wx.redirectTo({ url: '/pages/webview/webview?page=community' });
-        return true;
-      }
-    } catch(e) {}
-    return false;
+  onRemoveImage(e){var i=e.currentTarget.dataset.idx;var imgs=this.data.postImages;imgs.splice(i,1);this.setData({postImages:imgs})},
+  onCreatePost(){
+    var t=this;var text=t.data.postText;if(!text||!text.trim())return
+    t.setData({uploading:true})
+    wx.cloud.callFunction({name:'createPost',data:{text:text,images:t.data.postImages}}).then(function(r){
+      t.setData({postText:'',postImages:[],uploading:false})
+      if(r.result&&r.result.success){t.loadPosts();wx.showToast({title:'发布成功',icon:'success'})}
+      else{wx.showToast({title:r.result.error||'发布失败',icon:'none'})}
+    }).catch(function(){t.setData({uploading:false});wx.showToast({title:'网络错误',icon:'none'})})
   },
-  onShareAppMessage() {
-    return { title: '草原爱宠营 | 签到领金币兑好礼！', path: '/pages/index/index' };
-  }
+  onLikePost(e){
+    var id=e.currentTarget.dataset.id;var posts=this.data.posts
+    for(var i=0;i<posts.length;i++){if(posts[i]._id===id){posts[i].isLiked=!posts[i].isLiked;posts[i].likes=(posts[i].likes||0)+(posts[i].isLiked?1:-1);break}}
+    this.setData({posts:posts});wx.cloud.callFunction({name:'likePost',data:{postId:id}}).catch(function(){})
+  },
+  onCommentFocus(e){this.setData({commentPostId:e.currentTarget.dataset.id})},
+  onCommentInput(e){this.setData({commentText:e.detail.value})},
+  onAddComment(){
+    var t=this;var id=t.data.commentPostId;var text=t.data.commentText
+    if(!id||!text||!text.trim())return
+    wx.cloud.callFunction({name:'addComment',data:{postId:id,text:text.trim()}}).then(function(r){
+      if(r.result&&r.result.success){t.setData({commentText:'',commentPostId:''});t.loadPosts();wx.showToast({title:'评论成功',icon:'success'})}
+      else{wx.showToast({title:r.result.error||'评论失败',icon:'none'})}
+    }).catch(function(){wx.showToast({title:'网络错误',icon:'none'})})
+  },
+  onChooseVideo(){
+    var t=this
+    wx.chooseVideo({sourceType:['album','camera'],maxDuration:60,success:function(res){
+      var name='post_video_'+Date.now()+'.mp4'
+      wx.cloud.uploadFile({cloudPath:name,filePath:res.tempFilePath,success:function(r2){
+        t.setData({postImages:t.data.postImages.concat(r2.fileID)})
+      }})
+    }})
+  },
+  onCheckin(){this.setData({checkedToday:true,coins:this.data.coins+10})},
+  onExchange(e){wx.showToast({title:'ok',icon:'success'})}
 })
